@@ -1,37 +1,66 @@
 //-------------------------------------------------------------------------------------------------------
-// 2026년 1학기 STL 월56 화78		3월 3일																					(1주 1일)
+// 2026년 1학기 STL 월56 화78		3월 9일																					(1주 2일)
 //-------------------------------------------------------------------------------------------------------
-//	컴파일 환경 - Release / x64
-// VS 버전 - 17.14.24 (17.14.27로 맞추기!)
-// 프로젝트 설정 - C++ 언어표준 - / std:c++latest
-//						- C/C++언어 - SDL검사 - 아니요
-//-------------------------------------------------------------------------------------------------------
-// 한 학기 강의를 자동 저장하는 save 함수를 만든다.
+// template 
 //-------------------------------------------------------------------------------------------------------
 #include <iostream>
-#include <string>
-#include <fstream>
-#include <algorithm>
+#include "save.h"
 
-void save(const std::string&);		// 선언문 (얼마든지 해도 상관없음 백만번 가능)
+// 사용하지 말아야 할 자료형 - 대체할 수 있다 -> zero-overhead (불이익이 하나도 없음)
+// 1. char*		-> std::string
+// 2. T*			-> smart pointer를 사용할 것
+// 3. T[]		-> std::array를 사용할 것
 
+void change(int *, int *);
+
+// ----------
 int main()
+// ----------
 {
-	std::cout << "2026년 3월 3일" << '\n';
-	
+	// 얘네는 코드 세그먼트
+	//std::cout << "main - " << std::addressof(main) << std::endl;
+	//std::cout << "save - " << std::addressof(save) << std::endl;
+	{
+		// [문제] 의도대로 실행되게 하자
+		// Dog는 class로 작성하자.
+		using Dog = int;		// #define Dog int 이건 사용하면 안된다
+		Dog a{ 1 }, b{ 2 };
+
+		// 얘네는 스택
+		//std::cout << "a - " << std::addressof(a) << std::endl;		// 전역으로 옮기면 main, save의 윗동네로 변경
+		//std::cout << "b - " << std::addressof(b) << std::endl;
+
+		// 여기에서 change를 호출하였다.
+		// change란? 호출할 수 있는 어떤 것. (호출할 만한게 무한대임) -> 호출 연산자는 ()
+		// change(a, b); -> 이것도 맞지만 돌아가는 답임. 컴파일러가 알아서 주소로 변환해서 돌아가게 해줌. (항상 교수님이 알려준 코드처럼 코딩하자 포인터로)
+		// 레퍼런스는 실제로 존재하지 않는다!!!!!! (찾아보기)
+		change(&a, &b);
+
+		std::cout << a << ", " << b << std::endl;		// 2, 1이라고 출력되어야 함
+	}
+
+	{
+		// [문제] 의도대로 실행되게 하자
+		int a{ 1 }, b{ 2 };
+
+		// 얘네는 스택
+		//std::cout << "a - " << std::addressof(a) << std::endl;		// 전역으로 옮기면 main, save의 윗동네로 변경
+		//std::cout << "b - " << std::addressof(b) << std::endl;
+
+		// 여기에서 change를 호출하였다.
+		// change란? 호출할 수 있는 어떤 것. (호출할 만한게 무한대임) -> 호출 연산자는 ()
+		// change(a, b); -> 이것도 맞지만 돌아가는 답임. 컴파일러가 알아서 주소로 변환해서 돌아가게 해줌. (항상 교수님이 알려준 코드처럼 코딩하자 포인터로)
+		// 레퍼런스는 실제로 존재하지 않는다!!!!!! (찾아보기)
+		change(&a, &b);
+
+		std::cout << a << ", " << b << std::endl;		// 2, 1이라고 출력되어야 함
+	}
+
 	save("메인.cpp");
-	// return 0;		// 이건 표준이 아님 (없어야 됨) -> 내가 안써도 컴파일러가 자동으로 넣어줌. 
-	// return 20260303;		// 이건 가능 (필요하다면 써도 되지만 return 0를 쓰는 건 비표준임)
 }
 
-// 여기 설명부터 다시 합니다.
-// fname부터 하자
-
-void save(const std::string& fname)
-{
-	std::ifstream in{ fname };
-	std::ofstream out{ "2026년 1학기 STL 월56 화78.txt", std::ios::app };
-
-	std::copy(std::istreambuf_iterator<char>{in}, {},
-		std::ostream_iterator<char>{out});
+void change(int *p, int *q) {
+	int temp{ *p };
+	*p = *q;
+	*q = temp;
 }
