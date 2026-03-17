@@ -26,3 +26,6 @@ x86/
 ## [ 기타 OS 및 도구 ]
 .DS_Store
 Thumbs.db
+
+## [ 데이터 및 대용량 파일 ]
+int천만개.txt

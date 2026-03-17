@@ -1,63 +1,19 @@
 //-------------------------------------------------------------------------------------------------------
-// 2026년 1학기 STL 월56 화78		3월 10일																					(2주 1일)
+// 2026년 1학기 STL 월56 화78		3월 17일																					(3주 1일)
 //------------------------------------------------------------------------------------------------------- 
-// 다음 주 - 많은 수의 자료를 다루기
+// 많은 수의 자료를 다루기 - FILE I/O
 //-------------------------------------------------------------------------------------------------------
 #include <iostream>
-#include <random>
-#include <print>		// C++ 23
-#include <algorithm>
-#include <array>		// C++ 11
 #include "save.h"
-
-std::default_random_engine dre;
-std::uniform_int_distribution uid{ 0, 9999 };
-// 다음 시간 멤버 설명부터 다시
-
-template <class T, int N>
-class myArray {
-public:
-	size_t size() const {
-		return N;
-	}
-
-	int& operator[](int idx) {
-		return a[idx];
-	}
-
-	T* begin() {
-		return &a[0];
-	}
-
-	T* end() {
-		return &a[N];
-	}
-
-private:
-	T a[N];
-};
 
 // ----------
 int main()
 // ----------
 {
-	myArray<int, 1000> a;
-
-	for (int i = 0; i < a.size(); ++i) {
-		a[i] = uid(dre);
-	}
-
-	//for (int& num : a) {
-	//	num = uid(dre);
-	//}
-
-	for (int num : a) {
-		std::print("{:8}", num);
-	}
-	std::cout << std::endl;
-
-	auto[minPos, maxPos] = std::minmax_element(a.begin(), a.end());
-	std::cout << "가장 작은 값: " << *minPos << ", 가장 큰 값: " << *maxPos << std::endl;
+	// [문제] int로 표현할 수 있는 값은 -2,147,483,648 ~ +2,147,483,647 까지이다.
+	// 모든 int 값을 하나도 빠짐없이 한 개씩 파일에 text로 기록하였다. 
+	// 값과 값은 빈칸 한 개로 구분하였다.
+	// 이렇게 하면 int 를 한 개 기록하는데 평균 몇 바이트가 필요한지 계산하라. 
 
 	save("메인.cpp");
 }
