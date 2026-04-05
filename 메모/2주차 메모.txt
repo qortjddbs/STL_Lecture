@@ -1,0 +1,119 @@
+forward declaration (전방 선언)
+: 실제로 식별자를 정의하기 전에 식별자의 존재를 컴파일러에 미리 알리는 것이다.
+
+class Dog { 	// 중괄호는 여기에 쓰자! (좋은 코드 습관)
+Dog() = default;		// 디폴트 생성자 만들어주기!
+// ~Dog() -> 쓸데없이 소멸자 만들지말기 (0점짜리)
+
+Dog temp{ p };	// temp를 "복사 생성"하라	- 내가 안만들어도 돌아가는 이유 
+=> 스페셜 함수이기 때문! 컴파일러가 알아서 만들어줌
+p = q;		// p.operator=(q); -> 스페셜 함수!! 자동으로 만들어서 돌아가게 해줌
+
+using Dog = int (==) #define Dog int 이건 사용하면 안됨. 
+=> "이제부터 Dog라는 단어는 int(정수형)와 완전히 똑같은 취급을 하겠다" 라는 뜻
+
+Dog c = 1;	// 이렇게 사용하면 내가 원치않게 실행될 수 있음. 
+컴파일러가 알아서 형변환 실행 (그래서 explicit 붙이면 바로 오류)
+-> Dog c { 1 }; 라고 쓰기
+
+void change(std::string); 가 존재할 때
+change("12345 ");	// 돌려보면 컴파일은 되는데 링크 단계에서 오류 발생 
+(change@@YAXC ~~ 라는 이름의 함수를 컴파일러가 알아서 만듦!)
+
+템플릿 : "자료형(Type)에 구애받지 않고 쓸 수 있는 만능 코드 틀"
+템플릿 함수 선언과 정의를 분리할 수 없음!! (헤더파일과 cpp파일로 분리 불가)
++ 그래서 템플릿 함수를 쓸 때 특별한 자료형은 다르게 취급하고싶다면 그에 맞는 특수화 함수를 정의
+호출우선순위 결정! (컴파일러는 특수화 된 자료형이 있는지 먼저 확인 후 없으면 템플릿 함수 사용)
+
+C++ 에서 template의 역할 = Generic Programming 구현하는 핵심 키워드!
+
+std::default_random_engine dre; -> 무작위 숫자를 무한히 뿜어내는 엔진을 설치
+std::uniform_int_distribution uid -> 엔진에서 나온 숫자를 균등하게 분포 (모두가 같은 확률을 같게)
+std::numeric_limits<int>::min() -> int 가 가질 수 있는 가장 작은 숫자
+std::numeric_limits<int>::max() -> int 가 가질 수 있는 가장 큰 숫자
+
+#include <print>		// C++ 23
+std::print("{:8}", uid(dre));	-> {} 는 이 자리에 뒤에 있는 변수(uid(dre))를 끼워넣어라
++ :8 은 총 8칸을 확보하고 거기에 숫자를 채워넣어라 (기본 우측 정렬)
+ex) 12가 나오면 앞 6자리 확보 후 젤 오른쪽 2자리에 12 입력.
+
+std::print("{:<8}", uid(dre)); -> 좌측 정렬
+
+정렬할 때 -> std::sort(std::begin(a), std::end(a));
+최댓값 찾을 때 -> std::max_element(std::begin(a), std::end(a)); 사용 (최솟값도 똑같음)
+최소최대 둘 다 찾을 때 std::pair<int*, int*>result = std::minmax_element(std::begin(a), std::end(a));
+*(result.first), *(result.second) 하면 값 나옴
+std::pair<int*, int*>result == auto [최솟값, 최댓값] -> syntatic sugar 이렇게 써도 됨!
+
+// int[1000] 이런 자료구조는 앞으론 쓰지 말 것		
+new int[1000] 이거 쓸 때 말고는 안쓸거임 (이건 기계어 수준이라 안쓸 수 없음)
+// 대체할 수 있는 더 좋은 것이 있기 때문 - 시간/공간의 zero-overhead
+// 컴퓨터 세상에서 더 좋은 것 - 메모리를 덜 잡아먹음. 시간이 덜 걸림.
+// array<T, N> == std::array<int, 1000> a;
+int a[1000]; 은 자료형은 int[N] 인데 이름위치가 비정상
+
+std::array 는 sizeof a 하면 크기 나옴.
+
+iterator (반복자) : 데이터의 타입과 상관없이 위치를 가리키고 다음 데이터로 이동할 수 있는 스마트 커서
+그냥 타입 상관없이 * 붙이면 값 나오고 ++ 하면 다음 데이터 가리킴!
+
+*min_element(std::istream_iterator<int>{in}, {})
+시작점 std::istream_iterator<int>{in} : 지금부터 파일 in 에서 데이터를 int 단위로 하나씩 읽어오는 
+리모컨을 시작점으로 둔다.
+끝점 {} : istream_iterator의 기본 생성자 호출. (=파일의 끝 EOF를 의미)
+
+std::filesystem::file_size("int천만개") -> 파일 사이즈 나옴. 그걸 sizeof(int)로 나누면 갯수 알 수 있음
+#include <filesystem> // C++ 17 추가해줘야 함
+
+std::ifstream in{ "int천만개", std::ios::binary };
+파일이 바이너리 모드면 명시해줘야 함!
+
+in.read((char*)(a.data()), a.size() * sizeof(int)); -> read(데이터를 담을 주소, 읽어올 총 용량)
+a.data() : std::array a의 시작 주소
+read 함수는 1바이트 단위로만 데이터를 옮기기 때문에 형변환 필수 (char*) 혹은 reinterpret_cast<char*>
+a.size() * sizeof(int) : 배열의 크기(1000'0000개) * int (4바이트)
+
+// vector 사용했을 때 메모리 극한으로 사용하는 법
+- 메모리 낭비를 줄이는 STL의 전략
+메모리를 딱 맞춰서 쓰고 싶다면 다음 두 가지 방법을 사용할 수 있습니다.
+
+① reserve()로 미리 딱 맞게 예약하기
+사용자가 입력한 count를 미리 알고 있다면, reserve(count)를 호출하여 딱 그만큼만 
+메모리를 할당하도록 유도할 수 있습니다.
+
+② shrink_to_fit()으로 남는 공간 반납하기 (C++11 이상)
+데이터를 다 채운 뒤, v.shrink_to_fit()을 호출하면 capacity를 현재 size에 맞춰 줄여줍니다. 
+즉, new로 할당한 것과 똑같은 메모리 상태를 만듭니다.
+
+int* p;	// 스택에 들어가는 객체
+try {	// 만약 더 이상 할당할 수 있는 메모리가 없으면 뻗어버림. 
+(기절) 그래서 일단 try 해보고 할당 안되면 catch로 감.
+	p = new int[num];	// 시작 주소를 리턴하고 그 주소로부터 
+int * num크기만큼 메모리를 할당
+}
+catch (std::exception& e) {
+	std::cout << "메모리 고갈 - " << e.what() << std::endl;
+}
+try, catch -> 일단 try 코드 실행. 안되면 catch로 감.
+
+std::exception : C++의 모든 표준 에러를 아우르는 통합 에러 클래스
+catch(std::exception& e) 는 어떤 종류의 에러가 터지든, 
+일단 이 만능 그물망으로 다 잡아서 강제종료 막기
+
+e.what() : 내가 왜 터졌는지 알려줌. (문자열 텍스트로)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

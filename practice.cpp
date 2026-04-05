@@ -1,90 +1,68 @@
 //-------------------------------------------------------------------------------------------------------
-// 2026년 1학기 STL 월56 화78		3월 9일																					(1주 2일)
-//-------------------------------------------------------------------------------------------------------
-// template 
+// 2026년 1학기 STL 월56 화78		3월 24일																					(4주 1일)
+//------------------------------------------------------------------------------------------------------- 
+// Dynamic memory allocation (동적 메모리 할당)
+// smart pointer -> callable type -> 실습 -> STL
 //-------------------------------------------------------------------------------------------------------
 #include <iostream>
 #include "save.h"
+#include <numeric>
+#include <memory>
 
-class Dog;			// forward declaration
+// [문제] 사용자가 입력한 수만큼 int를 저장할 메모리를 확보하라.
+// 1부터 시작하는 정수로 메모리를 채워라.
+// 합계를 화면에 출력하라.
 
-void change(int*, int*);
+// [메모]
+// vector 사용했을 때 메모리 극한으로 사용하는 법
+/*
+- 메모리 낭비를 줄이는 STL의 전략
+메모리를 딱 맞춰서 쓰고 싶다면 다음 두 가지 방법을 사용할 수 있습니다.
 
-class Dog {		// 중괄호는 여기에 쓰자! (좋은 코드 습관)
-private:
-	int num;
+① reserve()로 미리 딱 맞게 예약하기
+사용자가 입력한 count를 미리 알고 있다면, reserve(count)를 호출하여 딱 그만큼만 메모리를 할당하도록 유도할 수 있습니다.
 
-public:
-	Dog() = default;		// 디폴트 생성자 만들어주기!
-	explicit Dog(int n) : num{ n } {}
-	// ~Dog() 쓸데없이 소멸자 만들지말기 (0점짜리)
-
-	// 이 코드는 사용하지 말자
-	//operator int () {
-	//	return num;
-	//}
-
-
-	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
-		return os << dog.num;
-	}
-};
-
-void change(Dog& p, Dog& q) {
-	Dog temp{ p };		// temp를 "복사 생성"하라	- 내가 안만들어도 돌아가는 이유 => 스페셜 함수이기 때문! 컴파일러가 알아서 만들어줌
-	p = q;		// p.operator = (q); -> 스페셜 함수!! 자동으로 만들어서 돌아가게 해줌
-	q = temp;
-}
+② shrink_to_fit()으로 남는 공간 반납하기 (C++11 이상)
+데이터를 다 채운 뒤, v.shrink_to_fit()을 호출하면 capacity를 현재 size에 맞춰 줄여줍니다. 즉, new로 할당한 것과 똑같은 메모리 상태를 만듭니다.
+*/
 
 // ----------
 int main()
 // ----------
 {
-	// 얘네는 코드 세그먼트
-	//std::cout << "main - " << std::addressof(main) << std::endl;
-	//std::cout << "save - " << std::addressof(save) << std::endl;
-	{
-		// [문제] 의도대로 실행되게 하자
-		// Dog는 class로 작성하자.
-		// using Dog = int;		// #define Dog int 이건 사용하면 안된다
-		Dog a{ 1 }, b{ 2 };		// Dog a = 1, b = 2; 이런식으로 쓰는 건 좀 "위험" 하다
-		// Dog c = 1;		// 이렇게 사용하면 내가 원치않게 실행될 수 있음. 컴파일러가 알아서 형변환 실행 (그래서 explicit 붙이면 바로 오류)
+	// c++ 옵티마이저 -> int* p를 자동으로 while 루프 밖으로 빼줌. (만들고 지우고 만들고 지우고 하면 알아서 밖으로 빼줌)
+	// int* p;	스택에 들어가는 객체 -> 사용하지 말아야 함
+	// C++11(Modern C++)에 이것의 완벽한 대체 수단이 있기 때문에 -> smart pointer
 
-		// 얘네는 스택
-		//std::cout << "a - " << std::addressof(a) << std::endl;		// 전역으로 옮기면 main, save의 윗동네로 변경
-		//std::cout << "b - " << std::addressof(b) << std::endl;
+	std::unique_ptr<int[]> p;
 
-		// 여기에서 change를 호출하였다.
-		// change란? 호출할 수 있는 어떤 것. (호출할 만한게 무한대임) -> 호출 연산자는 ()
-		// change(a, b); -> 이것도 맞지만 돌아가는 답임. 컴파일러가 알아서 주소로 변환해서 돌아가게 해줌. (항상 교수님이 알려준 코드처럼 코딩하자 포인터로)
-		// 레퍼런스는 실제로 존재하지 않는다!!!!!! (찾아보기)
-		change(a, b);
+	while (true) {
+		std::cout << "int 몇 개가 필요하신지? ";
+		size_t num;
+		std::cin >> num;
 
-		std::cout << a << ", " << b << std::endl;		// 2, 1이라고 출력되어야 함
-	}
+		// 설마 음수를 입력하지는 않으리라는 강력한 희망을!! (검사 안하겠다는 뜻)
 
-	{
-		// [문제] 의도대로 실행되게 하자
-		int a{ 1 }, b{ 2 };
+		try {									// 만약 더 이상 할당할 수 있는 메모리가 없으면 뻗어버림. (기절) 그래서 일단 try 해보고 할당 안되면 catch로 감.
+			p.reset(new int[num]);			// 시작 주소를 리턴하고 그 주소로부터 int * num크기만큼 메모리를 할당해줌!
+		}
+		catch (std::exception& e) {
+			std::cout << "메모리 고갈 - " << e.what() << std::endl;
+		}
 
-		// 얘네는 스택
-		//std::cout << "a - " << std::addressof(a) << std::endl;		// 전역으로 옮기면 main, save의 윗동네로 변경
-		//std::cout << "b - " << std::addressof(b) << std::endl;
+		//for (int i = 0; i < num; ++i) {
+		//	p[i] = i + 1;
+		//}
+		std::iota(p.get(), p.get() + num, 1);			// p부터 p + num까지 1씩 증가하며 채우기
 
-		// 여기에서 change를 호출하였다.
-		// change란? 호출할 수 있는 어떤 것. (호출할 만한게 무한대임) -> 호출 연산자는 ()
-		// change(a, b); -> 이것도 맞지만 돌아가는 답임. 컴파일러가 알아서 주소로 변환해서 돌아가게 해줌. (항상 교수님이 알려준 코드처럼 코딩하자 포인터로)
-		// 레퍼런스는 실제로 존재하지 않는다!!!!!! (찾아보기)
-		change(&a, &b);
+		//for (int i = 0; i < num; ++i) {
+		//	sum += p[i];
+		//}
+		long long sum = std::accumulate(p.get(), p.get() + num, 0LL);		// p부터 p + num까지 더하기 (마지막 인자는 항등원)
 
-		std::cout << a << ", " << b << std::endl;		// 2, 1이라고 출력되어야 함
+		std::cout << "1부터 " << num << "까지의 합계 : " << sum << std::endl;
+		save("메인.cpp");
 	}
 
 	save("메인.cpp");
-}
-
-void change(int* p, int* q) {
-	int temp{ *p };
-	*p = *q;
-	*q = temp;
 }
