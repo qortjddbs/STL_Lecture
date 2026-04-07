@@ -73,36 +73,6 @@ a.data() : std::array a의 시작 주소
 read 함수는 1바이트 단위로만 데이터를 옮기기 때문에 형변환 필수 (char*) 혹은 reinterpret_cast<char*>
 a.size() * sizeof(int) : 배열의 크기(1000'0000개) * int (4바이트)
 
-// vector 사용했을 때 메모리 극한으로 사용하는 법
-- 메모리 낭비를 줄이는 STL의 전략
-메모리를 딱 맞춰서 쓰고 싶다면 다음 두 가지 방법을 사용할 수 있습니다.
-
-① reserve()로 미리 딱 맞게 예약하기
-사용자가 입력한 count를 미리 알고 있다면, reserve(count)를 호출하여 딱 그만큼만 
-메모리를 할당하도록 유도할 수 있습니다.
-
-② shrink_to_fit()으로 남는 공간 반납하기 (C++11 이상)
-데이터를 다 채운 뒤, v.shrink_to_fit()을 호출하면 capacity를 현재 size에 맞춰 줄여줍니다. 
-즉, new로 할당한 것과 똑같은 메모리 상태를 만듭니다.
-
-int* p;	// 스택에 들어가는 객체
-try {	// 만약 더 이상 할당할 수 있는 메모리가 없으면 뻗어버림. 
-(기절) 그래서 일단 try 해보고 할당 안되면 catch로 감.
-	p = new int[num];	// 시작 주소를 리턴하고 그 주소로부터 
-int * num크기만큼 메모리를 할당
-}
-catch (std::exception& e) {
-	std::cout << "메모리 고갈 - " << e.what() << std::endl;
-}
-try, catch -> 일단 try 코드 실행. 안되면 catch로 감.
-
-std::exception : C++의 모든 표준 에러를 아우르는 통합 에러 클래스
-catch(std::exception& e) 는 어떤 종류의 에러가 터지든, 
-일단 이 만능 그물망으로 다 잡아서 강제종료 막기
-
-e.what() : 내가 왜 터졌는지 알려줌. (문자열 텍스트로)
-
-
 
 
 
