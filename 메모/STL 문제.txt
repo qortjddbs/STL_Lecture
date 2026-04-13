@@ -73,18 +73,43 @@ std::cin >> num;
 생각없이 int 썼다가 사용자가 범위 벗어나게 쓰지 못하게 size_t로 num 설정.
 
 
+// [문제] "메인.cpp"의 소문자를 모두 대문자로 바꾼 "메인대문자.cpp"를 만들어라.
+transform(std::istreambuf_iterator<char>{in}, {}, std::ostreambuf_iterator<char>{out}, 
+		[](char c) {
+		return c = toupper(c);
+		});
 
 
+// [문제] 랜덤값을 갖는 int 1000만개를 메모리에 저장하라.
+// qsort를 이용하여 오름차순 정렬하라.
+// 정렬결과를 앞에서부터 1000개만 화면에 출력하라.
+int 오름차순(const void* a, const void* b) {
+    return (*(int*)a - *(int*)b);
+}
+std::array<int, 1000'0000> a;
+for (int& num : a) {
+    num = uid(dre);
+}
+qsort(a.data(), a.size(), sizeof(std::array<int, 1000'0000>::value_type), 오름차순);
+for (int num : a | std::views::take(1000)) {      
+// | : 버티컬 바 (짝대기) -> 필터 역할 (데이터를 원하는 대로 뽑아줄 수 있음!!)
+    std::print("{:8}", num);
+}
 
+시간 측정
+// 시간측정시작
+auto start = std::chrono::high_resolution_clock::now();
+qsort(a.data(), a.size(), sizeof(int), 오름차순);
+auto stop = std::chrono::high_resolution_clock::now();
+// 측정 끝
 
+auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+std::cout << "걸린 시간 - " << duration << std::endl;
 
-
-
-
-
-
-
-
+std::sort(a.begin(), a.end(), [](int a, int b) {
+    return a < b;
+    });
+=> 이게 제일 빠름
 
 
 

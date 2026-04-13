@@ -1,68 +1,30 @@
 //-------------------------------------------------------------------------------------------------------
-// 2026년 1학기 STL 월56 화78		3월 24일																					(4주 1일)
+// 2026년 1학기 STL 월56 화78		4월 6일														(5주 2일)
 //------------------------------------------------------------------------------------------------------- 
-// Dynamic memory allocation (동적 메모리 할당)
-// smart pointer -> callable type -> 실습 -> STL
+// 호출가능 타입
 //-------------------------------------------------------------------------------------------------------
 #include <iostream>
+#include <array>
+#include <algorithm>
 #include "save.h"
-#include <numeric>
-#include <memory>
 
-// [문제] 사용자가 입력한 수만큼 int를 저장할 메모리를 확보하라.
-// 1부터 시작하는 정수로 메모리를 채워라.
-// 합계를 화면에 출력하라.
-
-// [메모]
-// vector 사용했을 때 메모리 극한으로 사용하는 법
-/*
-- 메모리 낭비를 줄이는 STL의 전략
-메모리를 딱 맞춰서 쓰고 싶다면 다음 두 가지 방법을 사용할 수 있습니다.
-
-① reserve()로 미리 딱 맞게 예약하기
-사용자가 입력한 count를 미리 알고 있다면, reserve(count)를 호출하여 딱 그만큼만 메모리를 할당하도록 유도할 수 있습니다.
-
-② shrink_to_fit()으로 남는 공간 반납하기 (C++11 이상)
-데이터를 다 채운 뒤, v.shrink_to_fit()을 호출하면 capacity를 현재 size에 맞춰 줄여줍니다. 즉, new로 할당한 것과 똑같은 메모리 상태를 만듭니다.
-*/
+bool 정렬기준(int a, int b)
+{
+    std::cout << "함수 ";     // 10 * log10 (3 ~ 4정도) 번 호출.
+    return a < b;
+}
 
 // ----------
 int main()
 // ----------
 {
-	// c++ 옵티마이저 -> int* p를 자동으로 while 루프 밖으로 빼줌. (만들고 지우고 만들고 지우고 하면 알아서 밖으로 빼줌)
-	// int* p;	스택에 들어가는 객체 -> 사용하지 말아야 함
-	// C++11(Modern C++)에 이것의 완벽한 대체 수단이 있기 때문에 -> smart pointer
+    std::array<int, 10> a{ 8, 4, 2, 0, 1, 9, 7, 5, 6, 3 };
 
-	std::unique_ptr<int[]> p;
+    sort(a.begin(), a.end(), 정렬기준);       // 3번째 인자에 int 기준 오름차순 이 기본으로 깔림.
 
-	while (true) {
-		std::cout << "int 몇 개가 필요하신지? ";
-		size_t num;
-		std::cin >> num;
+    for (int num : a)
+        std::cout << num << ' ';
+    std::cout << std::endl;
 
-		// 설마 음수를 입력하지는 않으리라는 강력한 희망을!! (검사 안하겠다는 뜻)
-
-		try {									// 만약 더 이상 할당할 수 있는 메모리가 없으면 뻗어버림. (기절) 그래서 일단 try 해보고 할당 안되면 catch로 감.
-			p.reset(new int[num]);			// 시작 주소를 리턴하고 그 주소로부터 int * num크기만큼 메모리를 할당해줌!
-		}
-		catch (std::exception& e) {
-			std::cout << "메모리 고갈 - " << e.what() << std::endl;
-		}
-
-		//for (int i = 0; i < num; ++i) {
-		//	p[i] = i + 1;
-		//}
-		std::iota(p.get(), p.get() + num, 1);			// p부터 p + num까지 1씩 증가하며 채우기
-
-		//for (int i = 0; i < num; ++i) {
-		//	sum += p[i];
-		//}
-		long long sum = std::accumulate(p.get(), p.get() + num, 0LL);		// p부터 p + num까지 더하기 (마지막 인자는 항등원)
-
-		std::cout << "1부터 " << num << "까지의 합계 : " << sum << std::endl;
-		save("메인.cpp");
-	}
-
-	save("메인.cpp");
+    save("메인.cpp");
 }
