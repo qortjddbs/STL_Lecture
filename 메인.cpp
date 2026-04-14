@@ -1,14 +1,12 @@
 //-------------------------------------------------------------------------------------------------------
-// 2026년 1학기 STL 월56 화78		4월 13일													(6주 2일)
+// 2026년 1학기 STL 월56 화78		4월 14일													(7주 1일)
 // 중간고사 4월 21일 (8주 1일)
 //------------------------------------------------------------------------------------------------------- 
-// STL 컨테이너 - std::string과 유사한 ZString을 만들어서 컨테이너 본질에 접근
+// STL 컨테이너 - Containers are objects that store ohter objects.
 //-------------------------------------------------------------------------------------------------------
 #include <iostream>
-#include <memory>		// 스마트 포인터 사용 - 1. 유니크 포인터 (많이 씀) / 2. 쉐어드 포인터 (거의 안씀)
 #include <array>
-#include <fstream>
-#include <algorithm>
+#include <list>
 #include "save.h"
 #include "ZString.h"
 
@@ -18,20 +16,11 @@ extern bool 관찰;				// 관찰하려면 true
 int main()
 // ----------
 {
-	// [문제] "메인.cpp"에 있는 모든 단어를 ZString 객체로 읽어와라.
-	// 이 문제에서 단어란 공백으로 분리된 문자집합을 말한다.
-	// 다음 문장이 문제없이 실행되도록 하자.
-
-	std::ifstream in{ "메인.cpp" };
-	if (not in) {
-		std::cout << "파일 없음" << std::endl;
-		return 20260413;
-	}
-
-	ZString s;
-	while (in >> s) {
-		std::cout << s << std::endl;
-	}
+	std::array<ZString, 5> a{ "1", "333", "22", "4444", "55555"};
+	
+	// 아쉽지만 다음 시간에
+	// iterator로 a를 순회
+	// element access - at, operator[], front, back, data
 
 	save("메인.cpp");
 }
