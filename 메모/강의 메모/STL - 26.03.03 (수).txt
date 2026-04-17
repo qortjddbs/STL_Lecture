@@ -1,0 +1,57 @@
+STL - 26.03.03 (수)
+
+C++ -> Object - Oriented P/L (객체지향 프로그래밍 언어)
+User - Defined Data Types. 
+
+객체지향 언어의 특징
+class NPC {		// 중괄호는 여기에 붙이자
+{			// 여기에 붙이지 말고
+attributes;		// 속성 (variable)
+behaviors;		// 행동 (function)
+special functions;	// 
+Inheritance;		// 상속 
+
+
+};
+
+NPC a;		// instancing (객체를 살아있게 만드는 것) -> stack / data / free-store(HEAP)
+
+-> coding convention (코딩 스타일? 중괄호를 어디에 붙이는지 이런거)
+-> modeling (현실 세계를 코드로 데려오려고)
+
+Base
+↑(upcasting)
+Derived
+
+sub-classing
+
+그럼 왜 상속하냐?
+1. code reuse (코드 재활용)
+2. Polymorphism (다형성)
+
+1. C++ - OOP / virtual-uptr (상속의 다형성을 얻기 위해서 희생되는 부분)
+-> 문제를 해결하기 위해서 나만이 설계한 특별한 자료형을 새로 만든다. 
+
+복잡도 -> 시간 측면뿐만 아니라 공간(메모리) 과 관련한 복잡도 또한 신경써야함.
+
+O(N) < O(NlogN) - 보통 여기 < O(N^2) < O(N^3)
+-> time / memory
+모든 알고리즘은 트레이드오프 (장점을 얻기위해 희생하는 부분이 분명히 있음)
+
+STL : Standard Template Library
+
+General Programming (일반적 프로그래밍) / 줄여서 Generic
+-> 자료형과 관계없는!
+=> 1. 함수 - algorithm
+=> 2. 클래스 - container
+----------------------------------------> template이 Generic의 핵심 키워드!
+
+Iterators (반복자) -> 아주 유명한 디자인 패턴 (자료구조와 알고리즘을 아무런 문제 없이 교묘하게 섞은 것)
+디자인 패턴 : 어떤 문제를 풀기 위한 방법/패턴
+
+STL의 3가지 기둥 : 자료구조, 알고리즘, 반복자
+
+역대 STL 과제 3가지 (과제 30%)
+1. 예전 텀프들 세이프파일 만들기
+2. 어떤 클래스 데이터 (몇천만개) 가 있는데 이 파일을 읽어서 누가 점수가 제일 높은지 물어보면 답하는 것 (얼마나 걸렸는지 까지)
+3. 자릿수가 1억짜리 정수 2개가 있음. 합은? 만약 틀렸다면 그걸 어떻게 판별할 것인지?

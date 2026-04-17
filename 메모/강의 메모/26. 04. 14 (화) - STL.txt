@@ -1,0 +1,59 @@
+26. 04. 14 (화) - STL
+
+sequence 컨테이너 - array, deque(덱), forward-list, list, vector
+associative 컨테이너 - map, set
+unordered associative 컨테이너 - unordered_map, unordered_set
+
+C++ 표준에서의 컨테이너 정의 :
+Containers are objects that store ohter objects.
+
+STL 자료구조
+class로 만든 객체 -> 메모리를 차지함.
+객체 (instancing)
+
+STACK
+
+free-store
+
+DATA
+
+컨테이너는 homogeneous data type 만 담을 수 있음! (같은 데이터 타입만)
+heterogeneous한 data는 담을 수 없음!!!
+
+polymorphic (다형성) -> 보따리에 포인터를 담고 있어야함. Base*를 담고있는 자료구조를 사용한다면
+컨테이너도 게임에서 얼마든지 사용 가능.
+
+STL을 떠받치는 건 자료구조(N개)와 알고리즘(M개) + iterator (자료구조와 알고리즘 사이의 장벽)
+이걸 활용하려면 N x M개가 필요. 그러나 C++ Design Pattern의 Iterator Pattern으로 문제 해결
+
+iterator 덕분에 자료구조와 알고리즘은 서로 몰라도 결합이 가능!
+
+- 자료구조
+1. Sequence Container
+array
+deque
+forward_list
+list
+vector
+
+2. Associative Container
+3. Unordered Associative Container
+
+강의 순서 : Sequence Container -> 반복자 -> Associative Container -> Unordered Associative Container -> 알고리즘 (12 ~ 13주차쯤)
+
+컨테이너 중 유일하게 array만 STACK이나 DATA 영역에 데이터를 넣어놓고 관리할 수 있다.
+나머지는 전부 free-store에 데이터를 유지관리할 수 있다.
+
+array는 class가 아닌 struct이다. (대부분 다 class임)
+array는 숨길 게 없기때문에 굳이 class로 안만들어도 되는것임. (private 필요 x)
+데이터에 직접 access할 수 있게하기 위해서 (언제든 읽고쓰게 할 수 있게)
+
+decay하지 않음. 
+void f(int[]); 하면 자동으로 void f(int*); 로 바뀜. 이걸 decay라고 한다. array는 이걸 하지 않는다.
+
+컨테이너에서 5개는 필수
+담고있는 데이터 타입, 원소의 갯수를 세는 데이터 타입, end() - start()를 했을 때 데이터 타입, 
+
+lexicographically : 사전식으로 비교한다. (라는 뜻)
+<=> : 삼방향 연산자 (spaceship operator - 우주선 연산자)
+

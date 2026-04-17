@@ -1,0 +1,27 @@
+26. 03. 30 (월) - STL
+
+Memory - 실행시까지 주소가 결정되지 않는 경우
+
+주소가 결정되는 시점
+1. Static Allocation -> Compile-time (주소 대신 이름 사용 ex) int num;)
+2. Dynamic Allocation -> Run-time
+
+Smart pointers enable automatic, exception-safe, object lifetime management.
+스마트 포인터는 자동화, 안전한 예외처리, 객체의 생명주기 관리를 가능하게끔 해준다.
+
+루프를 직접 코딩했기 때문에 하지 말라는 것. (알아서 해주는 애가 있음)
+
+// [문제] 랜덤값을 갖는 int 1000만개를 메모리에 저장하라.
+-> compile-time에 결정 (DATA)
+// qsort를 이용하여 오름차순 정렬하라.
+contiguous memory -> []
+// 정렬결과를 앞에서부터 1000개만 화면에 출력하라.
+
+qsort(a.data(), a.size(), sizeof(int)) 이 세개만 주면 O(1)의 random-access가 가능해짐. 어딜 접근하든 동일한 시간
+
+- 더 공부해야 할 내용
+stack-unwiding
+RAII
+람다
+qsort에서 왜 void 포인터 쓰는지?
+ranges에서 view 조사??

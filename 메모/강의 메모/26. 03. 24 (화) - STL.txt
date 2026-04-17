@@ -1,0 +1,32 @@
+26. 03. 24 (화) - STL
+
+std::string은 string의 size와 시작 위치를 알고있음! + 2칸을 더 붙임
+why? 짧은 건 그냥 + 2칸에 붙여버리자! (16자까지)
+C++은 힙(Heap)이란 단어를 쓰지 않음!
+
+Memory Allocation
+정적 (Static) : program할 때 사용할 메모리를 결정 (compile-time)
+동적 (Dynamic) : 실행한 이후에 결정되는 메모리 (run-time)
+
+Memory
+주소		낮은	STACK
+			free-store
+			DATA
+		높은	CODE
+
+compile-time
+int num; -> num은 주소
+변수의 결정이 끝났다면 STACK 혹은 DATA 혹은 CODE에 살 수 있음
+CODE에는 함수만. 나머지 변수는 STACK과 DATA에 살고있음
+내가 코딩할 때 이름붙인 모든 것 = 주소 (main함수같은 것도 전부)
+
+run-time
+결정되는 변수는 이름을 줄 수 없음. (돌려봐야 알 수 있기 때문!)
+
+free-store는 굉장히 큼. 이론적으론 16EB (엑사바이트 2^64). 실제로는 최대 256TB정도 (구글 서버 등)
+보통의 컴퓨터에서는 수십GB정도.
+
+● 공부해야 할 내용
+- SSO
+- string 최적화 (언어마다, 컴파일러 회사마다 다 다름)
+- callable 타입 (곧 공부할 내용)
