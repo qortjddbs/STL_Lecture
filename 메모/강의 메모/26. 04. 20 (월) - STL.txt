@@ -1,0 +1,35 @@
+26. 04. 20 (월) - STL
+
+중간고사 - vector에 값 읽어오는 거
+
+ZStinrg에 함수 하나 추가해야될듯 
+
+std::array<ZString, 5> a{ "1", "333", "22", "4444", "55555"};
+에 대한 설명
+
+array의 크기 : sizeof(ZString) * a.size()
+
+iterator로 컨테이너 순회 가능 (위치)
+iterator는 pointer와 유사.
+
+c OOOOO
+transaction 안정성 때문에 생기는 문제
+
+copy는 원본 -> 복사본 생성
+move는 (원본) -> 원본
+
+날아가는 도중에 문제가 생기면 copy는 복사본만 문제있음. move는 예외가 생길 가능성 존재.
+예외 -> 기존 원본도 없어지고 새로운 원본도 안만들어질 수 있음.
+
+move는 프로그래머가 "보장" 해줘야함. 아무 문제가 없을 거라고.
+
+벡터는 template< class T, class Allocator = std::allocator<T> > class vector; 형태로 생성.
+두번째 인자는 안쓰면 std::allocator<T>으로 자동 초기화.
+내가 직접 class Allocator = std::allocator<T> 이 부분을 코딩한다면,
+게임에서도 쓰이는 데 큰 문제될 건 없음.
+
+Debug 모드는 사용하지 말자. 코딩 도사될때나 사용하는 것.
+실력 하나도 안 늘음.
+
+push_back은 amortized (평균) O(1)의 시간복잡도를 가진다.
+push_back을 하려했는데 capacity가 꽉 차면 메모리 이사를 가야하므로..

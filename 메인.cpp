@@ -21,8 +21,8 @@ extern bool 관찰;				// 관찰하려면 true
 int main()
 // ----------
 {
-	save("메인.cpp");
+	// save("메인.cpp");
 
 	// [문제] 키보드에서 입력한 모든 정수의 합계를 출력하라. (중간고사 끝나고?)
-	std::cout << "합계 - " << std::accumulate(std::istream_iterator<int>{std::cin}, {}, 0LL) << std::endl;
+	std::cout << std::accumulate(std::istream_iterator<int>{std::cin}, {}, 0LL) << std::endl;
 }
