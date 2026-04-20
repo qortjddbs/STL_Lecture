@@ -1,6 +1,6 @@
 // STL의 동작을 잘 살펴보려고 만든 std::string과 비슷한 class - 중간고사 준비 잘 하기 (이걸로 나옴)
 // 
-// 2026. 04. 13
+// 2026. 04. 20
 // ------------------------------------------------------------------
 #include <print>				// 표준 헤더는 내가 만든 헤더 위에다 적기
 #include <string>
@@ -12,7 +12,7 @@ bool 관찰{ false };
 ZString::ZString()
 	: id{ ++gid }		// 객체가 생성될 때마다 고유번호를 부여
 {
-	if (관찰) 
+	if (관찰)
 		special("생성");
 }
 
@@ -23,7 +23,7 @@ ZString::~ZString()
 	}
 }
 
-ZString::ZString(const char* s) 
+ZString::ZString(const char* s)
 	: id{ ++gid }
 {
 	len = std::strlen(s);
@@ -57,14 +57,16 @@ ZString& ZString::operator=(const ZString& other)
 	p.reset();
 	p = std::make_unique<char[]>(len);
 	memcpy(p.get(), other.p.get(), len);
-	
+
 	if (관찰)
 		special("복사할당");
 
 	return *this;
 }
 
-ZString::ZString(ZString&& other)
+// 이동 - C++11부터 지원되는 move semantics
+// 2026. 04. 20 move에서 예외를 던지지 않는다.
+ZString::ZString(ZString&& other) noexcept
 	: id{ ++gid }
 {
 	len = other.len;
@@ -76,7 +78,7 @@ ZString::ZString(ZString&& other)
 		special("이동생성");
 }
 
-ZString& ZString::operator=(ZString&& other)
+ZString& ZString::operator=(ZString&& other) noexcept
 {
 	if (this == &other)
 		return *this;
@@ -94,6 +96,12 @@ ZString& ZString::operator=(ZString&& other)
 
 size_t ZString::getLen() const { return len; }
 
+// STL 컨테이너가 되려면 다음 함수정도는 제공해야
+size_t ZString::size() const
+{
+	return len;
+}
+
 void ZString::special(std::string 동작) const
 {
 	// 글자수가 10개 이상이라도 10개 까지만 출력
@@ -108,7 +116,12 @@ void ZString::special(std::string 동작) const
 		id, 동작, (long long)this, (long long)p.get(), len, 글자);
 }
 
-std::ostream& operator<<(std::ostream& os, const ZString& zs) 
+void ZString::show() const		// 2026. 04. 20
+{
+	special("show");
+}
+
+std::ostream& operator<<(std::ostream& os, const ZString& zs)
 {
 	for (int i = 0; i < zs.len; ++i)
 		os << *(zs.p.get() + i);
@@ -117,10 +130,12 @@ std::ostream& operator<<(std::ostream& os, const ZString& zs)
 
 std::istream& operator>>(std::istream& is, ZString& zs)
 {
+	// 내일 그림 설명에서 시작
+
 	std::string s;
 	is >> s;
 	zs.len = s.size();
-	// zs.p.reset();	-> 메모리 비워주는건데 유니크 포인터는 새로운 메모리가 할당되면 기존 메모리를 알아서 비워줌.
+	zs.p.reset();
 	zs.p = std::make_unique<char[]>(s.size());
 	memcpy(zs.p.get(), s.data(), zs.len);
 
