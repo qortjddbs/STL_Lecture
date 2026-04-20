@@ -61,10 +61,6 @@ public:
 		memcpy(p, other.p, sizeof(int) * num);
 	}
 
-	~Bird() {
-		delete[] p;
-	}
-
 	Bird& operator=(const Bird& rhs) {
 		if (this == &rhs)
 			return *this;
@@ -74,12 +70,6 @@ public:
 		memcpy(p, rhs.p, sizeof(int) * num);
 
 		return *this;
-	}
-
-	Bird(istream& is) {
-		is.read((char*)(this), sizeof(*this));
-		p = new int[num];
-		is.read((char*)p, sizeof(int) * num);
 	}
 
 	int getNum() const {
@@ -100,15 +90,6 @@ public:
 	void write(ostream& os) {
 		os.write((const char*)(this), sizeof(*this));
 		os.write((const char*)p, sizeof(int) * num);
-	}
-
-	bool read(istream& is) {
-		is.read((char*)(this), sizeof(*this));
-		if (is.eof())
-			return false;
-		p = new int[num];
-		is.read((char*)p, sizeof(int) * num);
-		return true;
 	}
 
 };
@@ -148,11 +129,9 @@ int main()
 	// (물론 다른 방식으로 읽을 수도 있다)
 	// 화면에 출력된 읽은 객체 수를 답지에 쓴다.
 	//--------------------------------------------------------------------------
-	vector<Bird> birds;
-	while (in) {
-		birds.emplace_back(in);
-	}
-	cout << birds.size() << endl;
+
+
+
 
 
 	// ******************************************************

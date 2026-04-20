@@ -1,4 +1,4 @@
-STL - 26.03.03 (수)
+STL - 26.03.03 (화)
 
 C++ -> Object - Oriented P/L (객체지향 프로그래밍 언어)
 User - Defined Data Types. 
@@ -8,10 +8,8 @@ class NPC {		// 중괄호는 여기에 붙이자
 {			// 여기에 붙이지 말고
 attributes;		// 속성 (variable)
 behaviors;		// 행동 (function)
-special functions;	// 
+special functions;		// 특수 함수 (생성자, 소멸자, 복사 생성, 이동 생성)
 Inheritance;		// 상속 
-
-
 };
 
 NPC a;		// instancing (객체를 살아있게 만드는 것) -> stack / data / free-store(HEAP)
@@ -19,17 +17,17 @@ NPC a;		// instancing (객체를 살아있게 만드는 것) -> stack / data / f
 -> coding convention (코딩 스타일? 중괄호를 어디에 붙이는지 이런거)
 -> modeling (현실 세계를 코드로 데려오려고)
 
-Base
-↑(upcasting)
-Derived
+Base 	(자식 클래스)
+↑	(upcasting)
+Derived 	(부모 클래스)
 
-sub-classing
+sub-classing (상속과 같은 말)
 
 그럼 왜 상속하냐?
 1. code reuse (코드 재활용)
 2. Polymorphism (다형성)
 
-1. C++ - OOP / virtual-uptr (상속의 다형성을 얻기 위해서 희생되는 부분)
+1. C++ - OOP / virtual함수 -> vptr, vtable (상속의 다형성을 얻기 위해서 희생되는 부분)
 -> 문제를 해결하기 위해서 나만이 설계한 특별한 자료형을 새로 만든다. 
 
 복잡도 -> 시간 측면뿐만 아니라 공간(메모리) 과 관련한 복잡도 또한 신경써야함.

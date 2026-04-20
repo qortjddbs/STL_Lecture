@@ -27,6 +27,6 @@ free-store는 굉장히 큼. 이론적으론 16EB (엑사바이트 2^64). 실제
 보통의 컴퓨터에서는 수십GB정도.
 
 ● 공부해야 할 내용
-- SSO
+- SSO (Short String Optimization)
 - string 최적화 (언어마다, 컴파일러 회사마다 다 다름)
 - callable 타입 (곧 공부할 내용)

@@ -7,4 +7,4 @@
 
 
 contiguous = (물리적인) 연속된 memory
-continuous = 연속된 (시간상의)
+continuous = (시간상의) 연속된

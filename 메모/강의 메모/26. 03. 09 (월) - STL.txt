@@ -10,8 +10,8 @@
 		(TEXT)
 
 				main(주소)	int a = 1, b = 2
-				save
-				change	얘가 main 주소지까지 가서 값을 변경할 수 있나? (문제)
+				save 함수
+				change 함수	얘가 main 주소지까지 가서 값을 변경할 수 있나? (문제)
 
 
 템플릿 읽어보고 Dog 클래스 만들어보고 오기.

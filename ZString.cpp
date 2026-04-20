@@ -117,12 +117,10 @@ std::ostream& operator<<(std::ostream& os, const ZString& zs)
 
 std::istream& operator>>(std::istream& is, ZString& zs)
 {
-	// 내일 그림 설명에서 시작
-
 	std::string s;
 	is >> s;
 	zs.len = s.size();
-	zs.p.reset();
+	// zs.p.reset();	-> 메모리 비워주는건데 유니크 포인터는 새로운 메모리가 할당되면 기존 메모리를 알아서 비워줌.
 	zs.p = std::make_unique<char[]>(s.size());
 	memcpy(zs.p.get(), s.data(), zs.len);
 

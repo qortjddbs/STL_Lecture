@@ -27,7 +27,7 @@ void save(const std::string& fname)
 	// if (not out)		이건 할 필요 없음. std::ios::app -> 옛날 파일 그대로 두고 덮어쓰는 모드
 
 	// 시간정보를 얻는다
-	auto now = std::chrono::system_clock::now();		// time epoch로 부터 1초마다 증가한 tick 수
+	auto now = std::chrono::system_clock::now();		// time epoch로부터 1초마다 증가한 tick 수
 	// 데이터 타입은 컴파일러가 추측할 수 있기 때문에(마우스 갖다대면 알려줌) 직접 써줘도 되고 auto를 써서 컴파일러가 자동으로 써주게끔 할 수 있음.
 
 	using namespace std::chrono_literals;

@@ -42,7 +42,7 @@ vector
 강의 순서 : Sequence Container -> 반복자 -> Associative Container -> Unordered Associative Container -> 알고리즘 (12 ~ 13주차쯤)
 
 컨테이너 중 유일하게 array만 STACK이나 DATA 영역에 데이터를 넣어놓고 관리할 수 있다.
-나머지는 전부 free-store에 데이터를 유지관리할 수 있다.
+나머지는 전부 free-store에다가 데이터를 유지관리할 수 있다. (객체 자체는 STACK에 생성)
 
 array는 class가 아닌 struct이다. (대부분 다 class임)
 array는 숨길 게 없기때문에 굳이 class로 안만들어도 되는것임. (private 필요 x)
@@ -52,7 +52,7 @@ decay하지 않음.
 void f(int[]); 하면 자동으로 void f(int*); 로 바뀜. 이걸 decay라고 한다. array는 이걸 하지 않는다.
 
 컨테이너에서 5개는 필수
-담고있는 데이터 타입, 원소의 갯수를 세는 데이터 타입, end() - start()를 했을 때 데이터 타입, 
+담고있는 데이터 타입, 원소의 갯수를 세는 데이터 타입, end() - start()를 했을 때 데이터 타입, 원소에 접근할 때 쓰는 참조 타입, 데이터를 순회할 수 있는 반복자 타입
 
 lexicographically : 사전식으로 비교한다. (라는 뜻)
 <=> : 삼방향 연산자 (spaceship operator - 우주선 연산자)
