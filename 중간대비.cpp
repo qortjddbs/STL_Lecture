@@ -92,6 +92,15 @@ public:
 		os.write((const char*)p, sizeof(int) * num);
 	}
 
+	istream& read(istream& is) {
+		is.read((char*)this, sizeof(*this));
+		if (is) {
+			p = new int[num];
+			is.read((char*)p, sizeof(int) * num);
+		}
+		return is;
+	}
+
 };
 
 //---------
@@ -129,9 +138,14 @@ int main()
 	// (물론 다른 방식으로 읽을 수도 있다)
 	// 화면에 출력된 읽은 객체 수를 답지에 쓴다.
 	//--------------------------------------------------------------------------
+	vector<Bird> v;
+	Bird temp;
 
+	while (temp.read(in)) {
+		v.push_back(temp);
+	}
 
-
+	cout << v.size() << endl;
 
 
 	// ******************************************************
