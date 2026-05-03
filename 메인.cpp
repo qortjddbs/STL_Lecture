@@ -20,8 +20,9 @@ extern bool 관찰;				// 관찰하려면 true
 int main()
 // ----------
 {
-	save("메인.cpp");
+	// save("메인.cpp");
 
+<<<<<<< HEAD
 	std::list<ZString> v{ "1", "22", "4444", "55555" };
 	// [문제] "22" 다음에 "333"을 추가하라.
 	관찰 = true; 
@@ -33,4 +34,8 @@ int main()
 
 	for (const ZString& zs : v)
 		std::cout << zs << std::endl;
+=======
+	// [문제] 키보드에서 입력한 모든 정수의 합계를 출력하라. (중간고사 끝나고?)
+	std::cout << std::accumulate(std::istream_iterator<int>{std::cin}, {}, 0LL) << std::endl;
+>>>>>>> 40ea89f5558e3987af839685a9e49ef04abb3efb
 }

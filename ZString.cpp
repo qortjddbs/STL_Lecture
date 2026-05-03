@@ -150,8 +150,6 @@ std::ostream& operator<<(std::ostream& os, const ZString& zs)
 
 std::istream& operator>>(std::istream& is, ZString& zs)
 {
-	// 내일 그림 설명에서 시작
-
 	std::string s;
 	is >> s;
 	zs.len = s.size();
