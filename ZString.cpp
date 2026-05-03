@@ -4,6 +4,7 @@
 // ------------------------------------------------------------------
 #include <print>				// 표준 헤더는 내가 만든 헤더 위에다 적기
 #include <string>
+#include <algorithm>			// equal 2026. 04. 28
 #include "ZString.h"
 
 size_t ZString::gid{};		// 외부에서 초기화
@@ -94,6 +95,25 @@ ZString& ZString::operator=(ZString&& other) noexcept
 	return *this;
 }
 
+// 2026. 04. 28
+bool ZString::operator==(const ZString& rhs) const  // rhs - right hand side (오른쪽 피연산자)
+{
+	// 동등성(equality)과 상등성(equivalence)의 차이
+	// id, len, p가 있는데 ==> 내가 관리하는 글자가 같으면 같은거다.
+	if (len != rhs.len)
+		return false;
+
+	return std::equal(p.get(), p.get() + len, rhs.p.get());	// 심지어 인라인 함수임. 속도도 빠르고 효율적, 가독성도 좋음
+
+	// 오래된 구식 코드
+	//for (int i = 0; i < len; ++i) {
+	//	if (p[i] != rhs.p[i])
+	//		return false;
+	//}
+	//return true;
+}
+// :: -> scope resolution operator (범위 해제 연산자) - 클래스의 멤버 함수를 정의할 때 사용
+
 size_t ZString::getLen() const { return len; }
 
 // STL 컨테이너가 되려면 다음 함수정도는 제공해야
@@ -141,3 +161,6 @@ std::istream& operator>>(std::istream& is, ZString& zs)
 
 	return is;
 }
+
+char* ZString::begin() { return p.get(); }
+char* ZString::end() { return p.get() + len; }

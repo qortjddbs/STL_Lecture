@@ -27,7 +27,7 @@
     <ClCompile Include="ZString.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="중간대비.cpp">
+    <ClCompile Include="중간고사.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
