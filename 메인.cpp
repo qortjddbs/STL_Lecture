@@ -1,16 +1,19 @@
 //-------------------------------------------------------------------------------------------------------
-// 2026년 1학기 STL 월56 화78		4월 27일													(8주 2일)
-// 중간고사 4월 21일 (8주 1일) - 85 / 120 (33명 중 10등)
+// 2026년 1학기 STL 월56 화78		05월 04일													(9주 2일)
 //------------------------------------------------------------------------------------------------------- 
 // STL 컨테이너 - Containers are objects that store ohter objects.
 // Sequence Container
 // - array<T, N> - 유일하게 컴파일 타임에 size 결정 - STACK, DATA
-// - vector<T> - dynamic (size) array - free-store에 data 관리
+// - vector<T> - 캐시 히트율이 높아 고속 데이터 처리에 유리
+// - list<T> - 아무데서나 원소 추가/삭제 O(1)
 //-------------------------------------------------------------------------------------------------------
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 #include <list>
+#include <fstream>
+#include <ranges>
 #include "save.h"
 #include "ZString.h"
 
@@ -20,20 +23,20 @@ extern bool 관찰;				// 관찰하려면 true
 int main()
 // ----------
 {
-	// save("메인.cpp");
+	// [문제] 파일에 있는 단어를 list<ZString>에 저장하라.
+	// 단어를 사전식 오름차순으로 정렬하라.
 
-	std::list<ZString> v{ "1", "22", "4444", "55555" };
-	// [문제] "22" 다음에 "333"을 추가하라.
-	관찰 = true; 
-	for (int i = 0; i < 10; ++i)
-		v.emplace(v.begin() + 2, "333");	// 여기에서 다음 주
-	// 벡터에서 중간에 값 끼워넣기는 O(n) -> 쥐약임.
-	// 그럼 잘하는 애는 누구냐?? -> list O(1)
-	관찰 = false;
+	std::ifstream in{ "2026년 1학기 STL 월56 화78.txt" };
+	if (not in) {
+		std::cout << "강의저장 파일이 없네요" << std::endl;
+		return 20260504;
+	}
 
-	for (const ZString& zs : v)
-		std::cout << zs << std::endl;
+	std::list<ZString> words{ std::istream_iterator<ZString>{in}, {} };
+	words.sort([](const ZString& a, const ZString& b) {
+		// 멤버함수가 없어서 미완. 다음시간에 -> 정렬시간비교
+		lexicographical_compare();
+		});
 
-	// [문제] 키보드에서 입력한 모든 정수의 합계를 출력하라. (중간고사 끝나고?)
-	std::cout << std::accumulate(std::istream_iterator<int>{std::cin}, {}, 0LL) << std::endl;
+	save("메인.cpp");
 }
