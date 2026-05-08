@@ -1,8 +1,8 @@
 STL 과제
 
-이름		점수		아이디
+이름		점수			아이디
 moon		10			123
-day			70			 33
+day		70			 33
 flower		20			  7
 abcd		50			  9
 tuesday		5			123
