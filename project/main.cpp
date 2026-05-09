@@ -64,8 +64,7 @@ int main()
 
 	// 1. 파일에 저장한 모든 Player 정보를 읽어 컨테이너에 저장하라.
 	// 제일 마지막 Player의 정보를 다음과 같은 형식으로 화면에 출력하라.
-	// - 어떤 방식으로 읽어 메모리에 저장했는지 보고서에 설명하라.\
-	// -> array를 사용하지 않고 vector를 사용한 이유
+	// - 어떤 방식으로 읽어 메모리에 저장했는지 보고서에 설명하라.
 
 	std::vector<Player> players;
 	players.reserve(300'0000);
@@ -75,16 +74,18 @@ int main()
 		players.push_back(std::move(temp));
 	}
 
-	//if(not players.empty()) {
-	//	players.back().show();
-	//}
+	std::println("\n--- [문제 1] 마지막 Player 정보 출력 ---");
+
+	if(not players.empty()) {
+		players.back().show();
+	}
 
 	// 2. 점수가 가장 큰 Player를 찾아 화면에 출력하라.(동점 모두 출력)
 	// 	Player의 평균 점수를 계산하여 화면에 출력하라.
 	// 	- 어떻게 찾고 계산하였는지 보고서에 설명하라.
-	// -> 
+	std::println("\n--- [문제 2] 점수가 가장 큰 Player 및 Player의 평균 점수 출력 ---");
 	
-	/*auto max_it = std::max_element(players.begin(), players.end(), [](const Player& a, const Player& b) {
+	auto max_it = std::max_element(players.begin(), players.end(), [](const Player& a, const Player& b) {
 		return a.get_score() < b.get_score();
 		});
 
@@ -106,15 +107,14 @@ int main()
 
 	double avg_score = static_cast<double>(total_score) / players.size();
 
-	std::println("전체 평균 점수: {:.1f}", avg_score);*/
+	std::println("전체 평균 점수: {:.1f}", avg_score);
 
 	// 3. id가 서로 같은 객체를 찾아 "같은아이디.txt"에 기록하라.
 	//	id가 같은 객체는 모두 몇 개인지 화면에 출력하라.
 	//	파일에는 id가 같은 Player 객체의 이름과 아이디를 한 줄 씩 기록한다. 
 	// - 어떻게 같은 id를 찾았는지 보고서에 설명하라.
-	// -> 해시 (unordered_map)을 안쓰고 정렬 후 비교한 이유
 
-	// std::println("\n--- [과제 3 속도 비교 테스트] ---");
+	std::println("\n--- [문제 3] id가 같은 객체의 개수 출력 ---");
 
 	// 해시
 	//auto start_hash = std::chrono::high_resolution_clock::now();
@@ -142,19 +142,19 @@ int main()
 		return a.get_id() < b.get_id();
 		});
 
-	//int duplicate_count_sort = 0;
-	//for (size_t i = 0; i < players.size(); ++i) {
-	//	bool is_duplicate = false;
-	//	if (i > 0 && players[i].get_id() == players[i - 1].get_id()) is_duplicate = true;
-	//	else if (i < players.size() - 1 && players[i].get_id() == players[i + 1].get_id()) is_duplicate = true;
+	int duplicate_count_sort = 0;
+	for (size_t i = 0; i < players.size(); ++i) {
+		bool is_duplicate = false;
+		if (i > 0 && players[i].get_id() == players[i - 1].get_id()) is_duplicate = true;
+		else if (i < players.size() - 1 && players[i].get_id() == players[i + 1].get_id()) is_duplicate = true;
 
-	//	if (is_duplicate) ++duplicate_count_sort;
-	//}
-	//auto end_sort = std::chrono::high_resolution_clock::now();
-	//auto duration_sort = std::chrono::duration_cast<std::chrono::milliseconds>(end_sort - start_sort);
+		if (is_duplicate) ++duplicate_count_sort;
+	}
+	// auto end_sort = std::chrono::high_resolution_clock::now();
+	// auto duration_sort = std::chrono::duration_cast<std::chrono::milliseconds>(end_sort - start_sort);
 
-	// std::println("[해시 방식 결과] 중복: {}개, 소요 시간: {} ms", duplicate_count_hash, duration_hash.count());
-	// std::println("[정렬 방식 결과] 중복: {}개, 소요 시간: {} ms", duplicate_count_sort, duration_sort.count());
+	 // std::println("[해시 방식 결과] 중복: {}개, 소요 시간: {} ms", duplicate_count_hash, duration_hash.count());
+	 // std::println("[정렬 방식 결과] 중복: {}개, 소요 시간: {} ms", duplicate_count_sort, duration_sort.count());
 
 	std::ofstream out{ "같은아이디.txt" };
 	if (not out) {
@@ -162,7 +162,7 @@ int main()
 		return 2022180016;
 	}
 
-	int duplicate_count_sort = 0;
+	duplicate_count_sort = 0;
 	for (size_t i = 0; i < players.size(); ++i) {
 		bool is_duplicate = false;
 		if (i > 0 && players[i].get_id() == players[i - 1].get_id()) is_duplicate = true;
@@ -184,7 +184,7 @@ int main()
 	// -> 유니크 포인터로 할당한 메모리들은 free-store 여기저기에 흩어져 있어 300만번 포인터를 타고 free-store 메모리로 점프를 뛰어야 하니 cpu 캐시 미스로 인해 RAM에서 데이터를 계속 가져오느라 엄청난 overhead.
 	// 따라서 C++ 17에 추가된 병렬 알고리즘 사용.
 
-	std::println("\n--- [과제 4 실행 결과] ---");
+	std::println("\n--- [문제 4] '0'부터 '9'까지 모든 숫자가 있는 Player가 모두 몇 객체인지 출력 ---");
 
 	//auto start_task4 = std::chrono::high_resolution_clock::now();
 
@@ -202,7 +202,7 @@ int main()
 	//std::println("모든 숫자가 있는 Player 객체 수: {}개", all_digits_count);
 	//std::println("과제 4 실행 시간: {} ms", duration_task4.count()); // -> 이 방식으로 하면 대략 17초
 
-	auto start_task4 = std::chrono::high_resolution_clock::now();
+	// auto start_task4 = std::chrono::high_resolution_clock::now();
 
 	std::for_each(std::execution::par, players.begin(), players.end(), [](Player& player) {
 		player.sort_chars();
@@ -212,11 +212,11 @@ int main()
 		return player.has_all_digits();
 		});
 
-	auto end_task4 = std::chrono::high_resolution_clock::now();
-	auto duration_task4 = std::chrono::duration_cast<std::chrono::milliseconds>(end_task4 - start_task4);
+	// auto end_task4 = std::chrono::high_resolution_clock::now();
+	// auto duration_task4 = std::chrono::duration_cast<std::chrono::milliseconds>(end_task4 - start_task4);
 
 	std::println("'0'부터 '9'까지 모든 숫자가 있는 객체 수: {}개", all_digits_count); // 1558690
-	std::println("과제 4 처리 소요 시간: {} ms", duration_task4.count()); // 대략 2초
+	// std::println("과제 4 처리 소요 시간: {} ms", duration_task4.count()); // 대략 2초
 
 	//5.[LOOP] id를 입력받아 존재하는 id라면 다음 내용을 한 번에 화면 출력하라. 
 	// 
@@ -262,7 +262,15 @@ int main()
 		std::print("검색할 ID를 입력하세요: ");
 		std::cin >> target_id;
 
-		// 1. id 기준 검색 (O(log n) 이진 탐색)
+		// 숫자가 아닌 것을 입력했을 때 무한루프에 빠지는 현상 방지
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(32767, '\n');
+			std::println("잘못된 입력입니다. 숫자로 된 ID를 입력해주세요.\n");
+			continue;
+		}
+
+		// 1. id 기준 검색
 		// lower_bound는 target_id보다 크거나 같은 값 중 첫 번째 위치를 찾고, 
 		// upper_bound는 target_id보다 큰 값 중 첫 위치를 찾음.
 		// 못찾을 경우, 찾는 값이 주어진 데이터들 보다 크면 end() 반환,
@@ -290,7 +298,7 @@ int main()
 		// 입력한 id의 후 인덱스 출력
 		if (id_upper != id_index.end()) (*id_upper)->show();
 
-		// 2. name 기준 검색(O(log n) 이진 탐색)
+		// 2. name 기준 검색
 		auto name_lower = std::lower_bound(name_index.begin(), name_index.end(), target_name, [](const Player* p, const std::string& name) {
 			return p->get_name() < name;
 			});
@@ -303,7 +311,7 @@ int main()
 		for (auto it = name_lower; it != name_upper; ++it) (*it)->show();
 		if (name_upper != name_index.end()) (*name_upper)->show();
 
-		// 3. score 기준 검색(O(log n) 이진 탐색)
+		// 3. score 기준 검색
 		auto score_lower = std::lower_bound(score_index.begin(), score_index.end(), target_score, [](const Player* p, int score) {
 			return p->get_score() < score;
 			});
