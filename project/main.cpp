@@ -7,8 +7,8 @@
 #include <memory>
 #include <numeric>
 #include <chrono>
-#include <unordered_map>
 #include <execution>
+// #include <unordered_map>
 
 class Player {
 	std::string name;				// 이름, 길이[3, 15], ['a', 'z']로만 구성
