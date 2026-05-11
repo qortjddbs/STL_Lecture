@@ -19,8 +19,8 @@ public:
 	ZString& operator=(const ZString&);
 
 	// 이동 - C++11부터 지원되는 move semantics
-	ZString(ZString&&) noexcept;		// && - rvalue reference (오른값 참조자) - 이동 생성자, 2026. 04. 20 move에서 예외를 던지지 않는다.
-	ZString& operator=(ZString&&) noexcept;	// 이동 할당 연산자
+//	ZString(ZString&&) noexcept;		// && - rvalue reference (오른값 참조자) - 이동 생성자, 2026. 04. 20 move에서 예외를 던지지 않는다.
+//	ZString& operator=(ZString&&) noexcept;	// 이동 할당 연산자
 
 	// 연산자오버로딩
 	// 2026. 04. 28
@@ -31,6 +31,8 @@ public:
 
 	// STL 컨테이너가 되려면 다음 함수정도는 제공해야 - 2026. 04. 20
 	size_t size() const;
+	char* data() const;		// 2026. 05. 11
+	
 
 	void special(std::string) const;
 

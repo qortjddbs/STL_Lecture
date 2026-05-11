@@ -67,33 +67,33 @@ ZString& ZString::operator=(const ZString& other)
 
 // 이동 - C++11부터 지원되는 move semantics
 // 2026. 04. 20 move에서 예외를 던지지 않는다.
-ZString::ZString(ZString&& other) noexcept
-	: id{ ++gid }
-{
-	len = other.len;
-	p.reset(other.p.release());	// other의 p가 관리하는 메모리를 가져옴 - other는 자동으로 nullptr이 됨
-
-	other.len = 0;
-	// 자기 자원이 이동된 other는 xvalues가 되고 이것을 사용하면 undefined behavior
-	if (관찰)
-		special("이동생성");
-}
-
-ZString& ZString::operator=(ZString&& other) noexcept
-{
-	if (this == &other)
-		return *this;
-
-	len = other.len;
-	// 잘 한 건가? 내 메모리 반환했나?
-	p.reset(other.p.release());
-	other.len = 0;
-
-	if (관찰)
-		special("이동할당");
-
-	return *this;
-}
+//ZString::ZString(ZString&& other) noexcept
+//	: id{ ++gid }
+//{
+//	len = other.len;
+//	p.reset(other.p.release());	// other의 p가 관리하는 메모리를 가져옴 - other는 자동으로 nullptr이 됨
+//
+//	other.len = 0;
+//	// 자기 자원이 이동된 other는 xvalues가 되고 이것을 사용하면 undefined behavior
+//	if (관찰)
+//		special("이동생성");
+//}
+//
+//ZString& ZString::operator=(ZString&& other) noexcept
+//{
+//	if (this == &other)
+//		return *this;
+//
+//	len = other.len;
+//	// 잘 한 건가? 내 메모리 반환했나?
+//	p.reset(other.p.release());
+//	other.len = 0;
+//
+//	if (관찰)
+//		special("이동할당");
+//
+//	return *this;
+//}
 
 // 2026. 04. 28
 bool ZString::operator==(const ZString& rhs) const  // rhs - right hand side (오른쪽 피연산자)
@@ -120,6 +120,11 @@ size_t ZString::getLen() const { return len; }
 size_t ZString::size() const
 {
 	return len;
+}
+
+char* ZString::data() const		// 2026. 05. 11
+{
+	return p.get();
 }
 
 void ZString::special(std::string 동작) const
