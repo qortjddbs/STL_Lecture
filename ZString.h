@@ -26,6 +26,10 @@ public:
 	// 2026. 04. 28
 	bool operator==(const ZString& rhs) const; // rhs - right hand side (오른쪽 피연산자)
 
+	// 2026. 05. 12 - 반복자 인터페이스
+	char* begin() const;
+	char* end() const;
+
 	// 인터페이스 - 나중에 삭제 예정
 	size_t getLen() const;
 
@@ -43,9 +47,6 @@ public:
 	// 파일에서 읽어오려고 만듦 - 2026. 04. 13
 	friend std::istream& operator>>(std::istream& os, ZString& zs);
 
-	// 중간고사
-	char* begin();
-	char* end();
 private:
 	static size_t gid;				// 고유번호를 부여하기 위한 값
 	size_t id;						// 객체 고유번호 - 생성 시 유일한 값

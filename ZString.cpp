@@ -114,6 +114,17 @@ bool ZString::operator==(const ZString& rhs) const  // rhs - right hand side (오
 }
 // :: -> scope resolution operator (범위 해제 연산자) - 클래스의 멤버 함수를 정의할 때 사용
 
+	// 2026. 05. 12 - 반복자 인터페이스
+char* ZString::begin() const 
+{ 	
+	return p.get(); 
+}
+
+char* ZString::end() const 
+{	
+	return p.get() + len;
+}
+
 size_t ZString::getLen() const { return len; }
 
 // STL 컨테이너가 되려면 다음 함수정도는 제공해야
@@ -164,6 +175,3 @@ std::istream& operator>>(std::istream& is, ZString& zs)
 
 	return is;
 }
-
-char* ZString::begin() { return p.get(); }
-char* ZString::end() { return p.get() + len; }
