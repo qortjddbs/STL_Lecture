@@ -6,6 +6,61 @@
 #pragma once
 #include <iostream>
 
+// 2026년 5월 19일
+class ZString_Iterator {
+public:
+	// 표준반복자가 되려면 다음 5가지 호출해야 한다.
+	using iterator_category = std::random_access_iterator_tag;	// 2026. 05. 19 - 역방향 반복자는 양방향 반복자
+	using difference_type = std::ptrdiff_t;
+	using value_type = char;
+	using pointer = char*;
+	using reference = char&;
+	
+
+	ZString_Iterator() = default;
+
+	ZString_Iterator(char* p) : p{ p } { }
+
+	// void로 놓으면 안된다.
+	ZString_Iterator operator++() {
+		return ++p;
+	}
+
+	ZString_Iterator operator--() {
+		return --p;
+	}
+
+	ZString_Iterator operator+(difference_type n) const {
+		return p + n;
+	}
+
+	// 이쪽 문제있을듯
+	char operator*() const {
+		return *p;
+	}
+
+	char& operator*() {
+		return *p;
+	}
+	// 여기까지 2개 * 오버로딩
+
+	bool operator!=(const ZString_Iterator& rhs) const {
+		return p != rhs.p;
+	}
+
+
+	// 관계연산자는 6가지가 있다.
+	// 그런데 우주선 연산자 한 개만 코딩해서 6개를 자동으로 만들 수 있다 - 만세!
+	auto operator<=>(const ZString_Iterator& rhs) const = default;
+	// 우주선 연산자의 반환형은 절대 bool이 아니다. struct 머시기라서 auto로 써준다.
+
+	difference_type operator-(const ZString_Iterator& rhs) const {
+		return p - rhs.p;
+	}
+
+private:
+	char* p;
+};
 
 class ZString {
 public:
@@ -27,12 +82,14 @@ public:
 	bool operator==(const ZString& rhs) const; // rhs - right hand side (오른쪽 피연산자)
 
 	// 2026. 05. 12 - 반복자 인터페이스
-	char* begin() const;
-	char* end() const;
+	// 2026. 06. 10EEE
+	ZString_Iterator begin() const;
+	ZString_Iterator end() const;
 
 	// 2026. 05. 18 - 역방향 추가
-	char* rbegin() const;
-	char* rend() const;
+	// 2026. 05. 19 - 역방향반복자는 반드시 class로 코딩해야 합니다.
+	ZString_Iterator rbegin() const;
+	ZString_Iterator rend() const;
 
 	// 인터페이스 - 나중에 삭제 예정
 	size_t getLen() const;

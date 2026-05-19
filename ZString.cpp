@@ -115,23 +115,24 @@ bool ZString::operator==(const ZString& rhs) const  // rhs - right hand side (오
 // :: -> scope resolution operator (범위 해제 연산자) - 클래스의 멤버 함수를 정의할 때 사용
 
 // 2026. 05. 12 - 반복자 인터페이스
-char* ZString::begin() const 
+ZString_Iterator ZString::begin() const 
 { 	
 	return p.get(); 
 }
 
-char* ZString::end() const 
+ZString_Iterator ZString::end() const 
 {	
 	return p.get() + len;
 }
 
 // 2026. 05. 18 - 역방향 추가
-char* ZString::rbegin() const
+// 2026. 05. 19 - 역방향반복자는 반드시 class로 코딩해야 합니다.
+ZString_Iterator ZString::rbegin() const
 {
 	return p.get() + len;
 }
 
-char * ZString::rend() const
+ZString_Iterator ZString::rend() const
 {
 	return p.get();
 }
