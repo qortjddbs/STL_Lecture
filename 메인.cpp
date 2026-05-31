@@ -12,22 +12,32 @@
 
 extern bool 관찰;				// 관찰하려면 true
 
-//template<class 반복자>
-//void (f)(반복자 iter)
-//{
-//	std::cout << typeid(iterator_traits<반복자>::iterator_category).name() << std::endl;
-//}
+template<class 반복자, class 출력반복자>
+반복자 my_copy(반복자 begin, 반복자 end, 출력반복자 o) {
+	while (begin != end) {
+		*o = *begin;
+		++o;
+		++begin;
+	}
+	return o;
+}
+
 
 // ----------
 int main()
 // ----------
 {
-	save("메인.cpp");
+	ZString zs{ "sphinx of black quartz 3 judge my 6 vow" };
 
-	ZString zs{ "Sphinx of black quartz judge my vow" };
+	//코드 설명은 다음주에
+	//std::copy(zs.begin(),zs.end(),std::ostream_iterator<ZString::value_type>(std::cout," ### "));
+	my_copy(zs.begin(), zs.end(), std::ostream_iterator<ZString::value_type>(std::cout, " ### "));
+	//copy는 원본 ---> 복사본/복사본 원본을 손상하지 않는 알고리즘이다. modifying한 알고리즘이라는 것
+	//copy(zs.begin(),zs.end(),zs.begin()+5); 이것 가능은하다 하지만 하지말자
+	//std::cout << zs << std::endl;
 
-	// [문제] zs를 오름차순으로 정렬하세요.
-	std::sort(zs.begin(), zs.end());
 
-	std::cout << zs << std::endl;
+
+
+	// save("메인.cpp");
 }

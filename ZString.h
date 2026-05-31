@@ -23,31 +23,22 @@ public:
 
 	// void로 놓으면 안된다.
 	ZString_Iterator operator++() {
-		return ++p;
+		++p;
+		return *this;
 	}
 
 	ZString_Iterator operator--() {
-		return --p;
+		--p;
+		return *this;
 	}
 
 	ZString_Iterator operator+(difference_type n) const {
 		return p + n;
 	}
 
-	// 이쪽 문제있을듯
-	char operator*() const {
+	char& operator*() const {
 		return *p;
 	}
-
-	char& operator*() {
-		return *p;
-	}
-	// 여기까지 2개 * 오버로딩
-
-	bool operator!=(const ZString_Iterator& rhs) const {
-		return p != rhs.p;
-	}
-
 
 	// 관계연산자는 6가지가 있다.
 	// 그런데 우주선 연산자 한 개만 코딩해서 6개를 자동으로 만들 수 있다 - 만세!
@@ -58,11 +49,40 @@ public:
 		return p - rhs.p;
 	}
 
+	// 2026. 05. 26
+	ZString_Iterator operator-(difference_type n) const {
+		return p - n;
+	}
+
 private:
 	char* p;
 };
 
+// 2026년 5월 19일
+class ZString_Reverse_Iterator {
+public:
+	ZString_Reverse_Iterator() = default;
+	ZString_Reverse_Iterator(char* p) : p{ p } {}
+
+	void operator++() {
+		--p;
+	}
+
+	auto operator<=>(const ZString_Reverse_Iterator& rhs) const = default;
+
+private:
+	char* p;
+};
+
+// ZString은 표준 컨테이너의 동작을 흉내내고 있다.
 class ZString {
+// 2026. 05. 26
+// 표준 컨테이너라면 다음과 같은 타입을 제공해야한다.
+public:
+	using iterator = ZString_Iterator;
+	using reverse_iterator = ZString_Reverse_Iterator;
+	using value_type = char;
+
 public:
 	ZString();
 	~ZString();
@@ -74,15 +94,17 @@ public:
 	ZString& operator=(const ZString&);
 
 	// 이동 - C++11부터 지원되는 move semantics
-//	ZString(ZString&&) noexcept;		// && - rvalue reference (오른값 참조자) - 이동 생성자, 2026. 04. 20 move에서 예외를 던지지 않는다.
-//	ZString& operator=(ZString&&) noexcept;	// 이동 할당 연산자
+	// && - rvalue reference (오른값 참조자) - 이동 생성자
+	ZString(ZString&&) noexcept;	// 2026. 04. 20 move에서 예외를 던지지 않는다.
+	// 이동 할당 연산자
+	ZString& operator=(ZString&&) noexcept;	
 
 	// 연산자오버로딩
 	// 2026. 04. 28
 	bool operator==(const ZString& rhs) const; // rhs - right hand side (오른쪽 피연산자)
 
 	// 2026. 05. 12 - 반복자 인터페이스
-	// 2026. 06. 10EEE
+	// 2026. 05. 19 - begin이 되돌려줘야할 타입은 class이어야 한다.
 	ZString_Iterator begin() const;
 	ZString_Iterator end() const;
 
@@ -98,6 +120,8 @@ public:
 	size_t size() const;
 	char* data() const;		// 2026. 05. 11
 	
+	// 유니크 포인터 반환 함수 선언써줘
+	char* get();
 
 	void special(std::string) const;
 
