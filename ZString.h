@@ -103,6 +103,10 @@ public:
 	// 2026. 04. 28
 	bool operator==(const ZString& rhs) const; // rhs - right hand side (오른쪽 피연산자)
 
+	// 2026. 06. 01
+	// set의 기본정렬 연산자 <
+	bool operator<(const ZString& rhs) const;
+
 	// 2026. 05. 12 - 반복자 인터페이스
 	// 2026. 05. 19 - begin이 되돌려줘야할 타입은 class이어야 한다.
 	ZString_Iterator begin() const;
@@ -115,6 +119,11 @@ public:
 
 	// 인터페이스 - 나중에 삭제 예정
 	size_t getLen() const;
+
+	// 2026. 06. 01
+	size_t getId() const {
+		return id;
+	}
 
 	// STL 컨테이너가 되려면 다음 함수정도는 제공해야 - 2026. 04. 20
 	size_t size() const;

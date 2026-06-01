@@ -14625,3 +14625,926 @@ int main()
 	save("메인.cpp");
 	
 }
+
+==========================================================================================
+저장한 시간 - 2026-06-01 13:40:48.1657710
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+//------------------------------------------------------------------------------------------------------- 
+// STL 반복자 - Iterators are a generalization of pointers that allow 
+//				a C++ program to work with different data structures in a uniform manner.
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <algorithm>
+#include <ranges>
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+template<class 반복자, class 출력반복자>
+반복자 my_copy(반복자 begin, 반복자 end, 출력반복자 o) {
+	while (begin != end) {
+		// *o++ = *begin++; -> 실제 copy 알고리즘에서 이렇게 코딩되어 있다.
+		*o = *begin;
+		++o;
+		++begin;
+	}
+	return o;
+}
+
+
+// ----------
+int main()
+// ----------
+{
+	ZString zs{ "sphinx of black quartz 3 judge my 6 vow" };
+	save("메인.cpp");
+
+	//코드 설명은 다음주에
+	//std::copy(zs.begin(),zs.end(),std::ostream_iterator<ZString::value_type>(std::cout," ### "));
+	// 이게 왜 안되지 my_copy(zs.begin(), zs.end(), std::ostream_iterator<ZString::value_type>(std::cout, " ### "));
+	//copy는 원본 ---> 복사본/복사본 원본을 손상하지 않는 알고리즘이다. modifying한 알고리즘이라는 것
+	//copy(zs.begin(),zs.end(),zs.begin()+5); 이것 가능은하다 하지만 하지말자
+	//std::cout << zs << std::endl;
+
+	// OCP : 미래에 어떤 컨테이너가 와도 (내가 약속을 지켜서 만들기만 한다면 내 컨테이너도) 알고리즘이 동작할 수 있도록 만들어야 한다.는 설계 원칙
+
+	
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:01:11.3588728
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+// 다른 건 set은 key와 value를 구분하지 않고 map은 매우 잘 구분한다는 것 뿐
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+	std::set<int, std::less<int>> s{ 2, 4, 6, 1, 3, 4, 6 };		// set에 int를 집어넣는 새끼는 없음. 이건 실습이니까
+	// 이퀄레이지가 뭐지?
+	// C++ functor가 뭐야 -> std::less같은거
+	// associative -> 연관되어있다 / set은 key와 value가 연관되어있다
+	// set / map 동일하게 compare => uniqueness를 결정하는 방법은
+	// equivalence(동등성) 관계 < (less 연산자) <=> equlity(상등성) 관계 == (equality 연산자)
+	// set / map은 equivalence(동등성) 관계를 이용해서 uniqueness를 결정
+	// 동등성과 상등성 알아보기
+
+	/*
+	set이 동등한 걸 판정하는 방법
+	4	< 4(새) -> false
+	4(새) < 4	-> false
+
+	4와 4(새) - equivalence 관계!
+	*/
+	
+
+	for (int num : s)
+		std::cout << num << ' ';
+	std::cout << std::endl;
+
+	
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:02:22.0227517
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+// 다른 건 set은 key와 value를 구분하지 않고 map은 매우 잘 구분한다는 것 뿐
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+	//std::set<ZString> s{ "2026년", "6월", "1일", "월요일" };
+
+	//for (const ZString& zs : s)
+	//	std::cout << zs << std::endl;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:11:15.8861910
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+// 다른 건 set은 key와 value를 구분하지 않고 map은 매우 잘 구분한다는 것 뿐
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// 1. std::less를 ZString에 대하여 specialization
+template <>
+struct std::less<ZString> {
+	// predicate
+	// 조건자 - 참거짓을 판단하는 callable type
+	bool operator()(const ZString& a, const ZString& b) const {
+		return a.size() < b.size();
+	}
+};
+
+// ----------
+int main()
+// ----------
+{
+	std::set<ZString, std::less<ZString>> s{ "2026년", "6월", "1일", "월요일" };
+
+	for (const ZString& zs : s)
+		std::cout << zs << std::endl;
+
+	save("메인.cpp");
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:20:31.1989035
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+// 다른 건 set은 key와 value를 구분하지 않고 map은 매우 잘 구분한다는 것 뿐
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+
+	save("메인.cpp");
+	// "메인.cpp"의 단어를 set<ZString>에 저장하라.
+	//std::ifstream in{ "메인.cpp" };
+
+	//if (not in) {
+	//	std::cout << "파일을 살펴보세요" << std::endl;
+	//	return 20260601;
+	//}
+
+	//std::set<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	//for (const ZString& zs : s)
+	//	std::cout << zs << std::endl;
+
+	
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:21:13.9513434
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+// 다른 건 set은 key와 value를 구분하지 않고 map은 매우 잘 구분한다는 것 뿐
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// "메인.cpp"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "메인.cpp" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::set<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << std::endl;
+
+	
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:26:33.5434932
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+	// "메인.cpp"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "메인.cpp" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	// set<ZString>에 in의 단어를 저장하라.
+	// 정렬순서는 ZString의 id 기준 오름차순이다.
+	
+	class Dog {
+	public:
+		bool operator()(const ZString& a, const ZString& b) const
+		{
+			return a.getId() < b.getId();
+		}
+	};
+
+	std::set<ZString, Dog> s{ std::istream_iterator<ZString>{in}, {} };
+
+	관찰 = true;
+	for (const ZString& zs : s)
+		zs.show();
+	관찰 = false;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:26:49.6523612
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// "메인.cpp"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "메인.cpp" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	// set<ZString>에 in의 단어를 저장하라.
+	// 정렬순서는 ZString의 id 기준 오름차순이다.
+	
+	class Dog {
+	public:
+		bool operator()(const ZString& a, const ZString& b) const
+		{
+			return a.getId() > b.getId();
+		}
+	};
+
+	std::set<ZString, Dog> s{ std::istream_iterator<ZString>{in}, {} };
+
+	관찰 = true;
+	for (const ZString& zs : s)
+		zs.show();
+	관찰 = false;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:43:23.9272305
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::set<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << "  ";
+	std::cout << std::endl;
+
+	std::cout << "단어 개수 - " << s.size() << std::endl;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:49:21.9756621
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::set<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << "  ";
+	std::cout << std::endl;
+
+	std::cout << "단어 개수 - " << s.size() << std::endl;
+	
+	save("메인.cpp");
+
+	// [문제] 단어를 입력받아
+	// 있다면 몇 번째 단어인지
+	// 없다면 없는 단어라고 출력해 주자
+
+	while (true) {
+		std::cout << "찾을 단어? ";
+		ZString word;
+		std::cin >> word;
+
+		auto it = s.find(word);
+		if (it != s.end())
+			std::cout << "단어가 있습니다. " << std::distance(s.begin(), it) + 1 << " 번째 단어입니다." << std::endl;
+		else
+			std::cout << "단어가 없습니다." << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:53:01.0856007
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+#include <algorithm>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::set<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << "  ";
+	std::cout << std::endl;
+
+	std::cout << "단어 개수 - " << s.size() << std::endl;
+	
+	save("메인.cpp");
+
+	// [문제] 단어를 입력받아
+	// 있다면 몇 번째 단어인지
+	// 없다면 없는 단어라고 출력해 주자
+
+	while (true) {
+		std::cout << "찾을 단어? ";
+		ZString word;
+		std::cin >> word;
+
+		// 레전드 0점짜리 코드
+		auto p = find(s.begin(), s.end(), word);
+		if (p != s.end())
+			std::cout << std::distance(s.begin(), p) + 1 << "번째 단어" << std::endl;
+		else
+			std::cout << "없는 단어입니다" << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:55:21.0665917
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+#include <algorithm>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::set<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << "  ";
+	std::cout << std::endl;
+
+	std::cout << "단어 개수 - " << s.size() << std::endl;
+	
+	save("메인.cpp");
+
+	// [문제] 단어를 입력받아
+	// 있다면 몇 번째 단어인지
+	// 없다면 없는 단어라고 출력해 주자
+
+	while (true) {
+		std::cout << "찾을 단어? ";
+		ZString word;
+		std::cin >> word;
+
+		auto p = s.find(word);		// 훨 좋은 코드
+		if (p != s.end())
+			std::cout << std::distance(s.begin(), p) + 1 << "번째 단어" << std::endl;
+		else
+			std::cout << "없는 단어입니다" << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:56:26.7285840
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+#include <algorithm>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::set<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << "  ";
+	std::cout << std::endl;
+
+	std::cout << "단어 개수 - " << s.size() << std::endl;
+	
+	save("메인.cpp");
+
+	// [문제] 단어를 입력받아 있는지 없는지 출력하라.
+
+	while (true) {
+		std::cout << "찾을 단어? ";
+		ZString word;
+		std::cin >> word;
+
+		if (s.contains(word))
+			std::cout << "있다" << std::endl;
+		else
+			std::cout << "없다" << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 14:57:21.2870543
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+#include <algorithm>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::set<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << "  ";
+	std::cout << std::endl;
+
+	std::cout << "단어 개수 - " << s.size() << std::endl;
+	
+	save("메인.cpp");
+
+	// [문제] 단어를 입력받아 있는지 없는지 출력하라.
+
+	while (true) {
+		std::cout << "찾을 단어? ";
+		ZString word;
+		std::cin >> word;
+
+		if (s.contains(word))
+			std::cout << "있다" << std::endl;
+		else {
+			std::cout << "없다" << std::endl;
+			s.insert(word);
+		}
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 15:14:07.1998540
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+#include <algorithm>
+#include <vector>
+#include <iterator>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::set<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << "  ";
+	std::cout << std::endl;
+
+	std::cout << "단어 개수 - " << s.size() << std::endl;
+	
+	save("메인.cpp");
+
+	// vector에 정렬된 데이터를 복사하였다.
+	// [문제] 단어를 입력받아 있는지 없는지 출력하라.
+	std::vector<ZString> v;
+	v.reserve(s.size());
+	v.assign(s.begin(), s.end());
+
+	while (true) {
+		std::cout << "찾을 단어? ";
+		ZString word;
+		std::cin >> word;
+
+		// 정렬된 vector
+		if (binary_search(v.begin(), v.end(), word))
+			std::cout << "있는 단어" << std::endl;
+		else
+			std::cout << "없는 단어" << std::endl;
+	}
+}
+
+
+// binary-search하는데 cache 이점은 없다
+// 전체 데이터를 훑어 나가는데는 상당한 이점이 있다 (계속해서 캐쉬 적중하기 때문에)
+// 만약 벡터에다가 정렬된 상태로 저장한다면 벡터도 셋에 비해 단어 찾는 실력이 전혀 꿀리지 않는다
+
+// set은 Red-Black Tree, vector는 contiguous memory (배열) 라 접근하기에는 vector가 훨 좋다.
+// 근데 데이터를 끼워넣는다고 가정하면 다르다. vector는 원소의 추가/삭제가 자유롭지 않다.
+// 수시로 원소 추가/삭제 해야한다면 set이고, 컨테이너의 원소가 변경될 일이 없다면 vector가 낫다.
+// flat_set은 default -> vector로 만든다.
+// 결국 flat_set은 정렬된 vector이다.
+
+// C++ 17의 extract 함수는 노드를 쭉 뽑아내는 함수다. 뽑아내서 손질하고 다시 껴넣을 수 있다.
+// set의 extract가 뭔가요?? 라고 물어보기
+
+==========================================================================================
+저장한 시간 - 2026-06-01 15:16:22.6723890
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+#include <algorithm>
+#include <vector>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::multiset<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << "  ";
+	std::cout << std::endl;
+
+	std::cout << "단어 개수 - " << s.size() << std::endl;
+	
+	save("메인.cpp");
+
+	// vector에 정렬된 데이터를 복사하였다.
+	// [문제] 단어를 입력받아 있는지 없는지 출력하라.
+	std::vector<ZString> v;
+	v.reserve(s.size());
+	v.assign(s.begin(), s.end());
+
+	while (true) {
+		std::cout << "찾을 단어? ";
+		ZString word;
+		std::cin >> word;
+
+		// 정렬된 vector
+		if (binary_search(v.begin(), v.end(), word))
+			std::cout << "있는 단어" << std::endl;
+		else
+			std::cout << "없는 단어" << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-01 15:20:51.7832810
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 01일													(13주 2일)
+// 6/22 기말시험 (15/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Associative Container
+// - set/multiset - key-value, key==value
+// - map/multimap - key-value, key값을 정렬기준으로 하여 O(log N) value를 찾는다
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <fstream>	// 파일 주고 ZString으로 읽어봐라 id값이 얼마냐?? 라는 문제 기말고사에 나올듯
+#include <algorithm>
+#include <vector>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	// "이상한 나라의 앨리스.txt"의 단어를 set<ZString>에 저장하라.
+	std::ifstream in{ "이상한 나라의 앨리스.txt" };
+
+	if (not in) {
+		std::cout << "파일을 살펴보세요" << std::endl;
+		return 20260601;
+	}
+
+	std::multiset<ZString> s{ std::istream_iterator<ZString>{in}, {} };
+
+	for (const ZString& zs : s)
+		std::cout << zs << "  ";
+	std::cout << std::endl;
+
+	std::cout << "단어 개수 - " << s.size() << std::endl;
+	
+	save("메인.cpp");
+
+	// 단어를 입력받아 있다면 몇 개인지
+	// 없다면 없다고 출력하라.
+
+	while (true) {
+		std::cout << "찾을 단어? ";
+		ZString word;
+		std::cin >> word;
+
+		auto [하한, 상한] = s.equal_range(word);
+		// pair로 받아 코딩해 보세요
+		if (하한 == 상한)
+			std::cout << "없는 단어" << std::endl;
+		else
+			std::cout << std::distance(하한, 상한) << "개 있습니다" << std::endl;
+	}
+}
+
+// 이퀄레인지 -> 정렬된 자료에 같은 값을 가진(Alice) 원소를 껴넣어도 정렬이 깨지지 않는다는 것?
+// 장점 = distance를 재서 몇 개 있는지 셀 수 있음

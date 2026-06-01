@@ -24,18 +24,12 @@
     <ClCompile Include="ZString.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\Users\Master\Desktop\3학년 1학기\STL\5월 26일\ZString.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="save.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ZString.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Users\Master\Desktop\3학년 1학기\STL\5월 26일\ZString.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

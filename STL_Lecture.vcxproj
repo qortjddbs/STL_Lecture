@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Users\Master\Desktop\3학년 1학기\STL\5월 26일\ZString.cpp" />
     <ClCompile Include="save.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -148,7 +147,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Users\Master\Desktop\3학년 1학기\STL\5월 26일\ZString.h" />
     <ClInclude Include="save.h" />
     <ClInclude Include="ZString.h" />
   </ItemGroup>
