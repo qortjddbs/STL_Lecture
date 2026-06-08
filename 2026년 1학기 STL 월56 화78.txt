@@ -16727,3 +16727,1338 @@ int main()
 	for (auto [구간, 개수] : 노멀)
 		std::println("[{:2}] - {}", 구간, 개수);
 }
+
+==========================================================================================
+저장한 시간 - 2026-06-08 13:38:09.0904837
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <unordered_set>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	std::unordered_set<int> us{ 9, 1, 2, 3 };
+
+	for (int i : us) 
+		std::cout << i << ' ';
+	std::cout << std::endl;
+
+	save("메인.cpp");
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 13:51:10.4240754
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <unordered_set>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	std::cout << std::hash<int>{} (1) << std::endl;
+	std::cout << std::hash<int>{} (2) << std::endl;
+	std::cout << std::hash<int>{} (3) << std::endl;
+	std::cout << std::hash<int>{} (4) << std::endl;
+
+
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 13:52:17.5657445
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <set>
+#include <unordered_set>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// 비주얼 스튜디오에서 구현해놓은 해쉬
+	std::cout << std::hash<int>{} (1) % 8 << std::endl;	// 방번호 부여 (0~7)
+	std::cout << std::hash<int>{} (2) % 8 << std::endl;
+	std::cout << std::hash<int>{} (3) % 8 << std::endl;
+	std::cout << std::hash<int>{} (4) % 8 << std::endl;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 13:58:39.8679719
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <unordered_set>
+#include <print>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// 1, 2, 3, 4 -> 4, 7, 6, 1
+
+	// unordered_set의 메모리 구조
+	std::unordered_multiset<int, std::hash<int>> ums;	// 디폴트로 두번째엔 std::hash<int>가 들어감. 그냥 적어봄 (내가 따로 만든 해쉬가 있다면 여기에 적기. 근데 못만듦 ㅋㅋ)
+
+	while (true) {
+		std::cout << std::endl;
+		std::cout << "추가할 int? ";
+		int num;
+		std::cin >> num;
+		std::cout << std::endl;
+
+		ums.insert(num);
+		
+		for (int i = 0; i < ums.bucket_count(); ++i) {
+			std::print("[{: > 3}]", i);
+			for (auto j = ums.begin(i); j != ums.end(i); ++j) {
+				std::cout << " - " << *j;
+			}
+			std::cout << std::endl;
+		}
+		
+	}
+}
+
+/* 
+unordered_set에 대해 설명
+
+고기분쇄기 그림이 있고 값들을 거기에 넣어주면 정해진 hasher에서 들어갈 방을 계산해줌
+
+근데 모든 키값에 대해 다른 방을 부여하는 과정이 들어있음 (→ 고기분쇄기 만들기 ㅈㄴ 어려움)
+
+실제로 데이터를 넣는 방은 vector로 관리 (contiguous memory)
+
+근데 vector의 각 방은 이중연결리스트인 list로 관리중
+
+이러한 vector를 bucket이라고 부름.
+*/
+
+
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:02:49.3432207
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <unordered_set>
+#include <print>
+#include <numeric>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// 1, 2, 3, 4 -> 4, 7, 6, 1
+
+	// unordered_set의 메모리 구조
+	std::unordered_multiset<int, std::hash<int>> ums;
+
+	// iota로도 작성 가능
+	for (int i = 0; i < 63; ++i) {
+		ums.insert(i);
+	}
+
+	while (true) {
+		std::cout << std::endl;
+		std::cout << "추가할 int? ";
+		int num;
+		std::cin >> num;
+		std::cout << std::endl;
+
+		ums.insert(num);
+		
+		for (int i = 0; i < ums.bucket_count(); ++i) {
+			std::print("[{: > 3}]", i);
+			for (auto j = ums.begin(i); j != ums.end(i); ++j) {
+				std::cout << " - " << *j;
+			}
+			std::cout << std::endl;
+		}
+		
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:03:38.8154064
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <unordered_set>
+#include <print>
+#include <numeric>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// 1, 2, 3, 4 -> 4, 7, 6, 1
+
+	// unordered_set의 메모리 구조
+	std::unordered_multiset<int, std::hash<int>> ums;
+
+	// iota로도 작성 가능
+	for (int i = 0; i < 512; ++i) {
+		ums.insert(i);
+	}
+
+	while (true) {
+		std::cout << std::endl;
+		std::cout << "추가할 int? ";
+		int num;
+		std::cin >> num;
+		std::cout << std::endl;
+
+		ums.insert(num);
+		
+		for (int i = 0; i < ums.bucket_count(); ++i) {
+			std::print("[{: > 3}]", i);
+			for (auto j = ums.begin(i); j != ums.end(i); ++j) {
+				std::cout << " - " << *j;
+			}
+			std::cout << std::endl;
+		}
+		
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:04:00.1786104
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <unordered_set>
+#include <print>
+#include <numeric>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// 1, 2, 3, 4 -> 4, 7, 6, 1
+
+	// unordered_set의 메모리 구조
+	std::unordered_multiset<int, std::hash<int>> ums;
+
+	// iota로도 작성 가능
+	for (int i = 0; i < 511; ++i) {
+		ums.insert(i);
+	}
+
+	while (true) {
+		std::cout << std::endl;
+		std::cout << "추가할 int? ";
+		int num;
+		std::cin >> num;
+		std::cout << std::endl;
+
+		ums.insert(num);
+		
+		for (int i = 0; i < ums.bucket_count(); ++i) {
+			std::print("[{: > 3}]", i);
+			for (auto j = ums.begin(i); j != ums.end(i); ++j) {
+				std::cout << " - " << *j;
+			}
+			std::cout << std::endl;
+		}
+		
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:09:29.7098140
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <unordered_set>
+#include <print>
+#include <numeric>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	class Dog {
+	public:
+		size_t operator()(const ZString& zs) const {
+			return 3;
+		}
+	};
+
+	std::unordered_multiset<ZString, Dog> ums{ "2026년", "6월", "8일", "월요일" };
+	// hash 작성은 박사논문급
+	// 동일한 키인지 아닌지 hash가 판단 -> hash돌려서 같은 값이 나오면 같은 키라고 인식
+	// std::hash<ZString> 하면 hash가 ZString이 뭔지 모름
+
+	for (int i = 0; i < ums.bucket_count(); ++i) {
+		std::print("[{: > 3}]", i);
+		for (auto j = ums.begin(i); j != ums.end(i); ++j) {
+			std::cout << " - " << *j;
+		}
+		std::cout << std::endl;
+	}
+		
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:09:41.8108468
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <unordered_set>
+#include <print>
+#include <numeric>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	class Dog {
+	public:
+		size_t operator()(const ZString& zs) const {
+			return 3;
+		}
+	};
+
+	std::unordered_multiset<ZString, Dog> ums{ "2026년", "6월", "8일", "월요일" };
+	// hash 작성은 박사논문급
+	// 동일한 키인지 아닌지 hash가 판단 -> hash돌려서 같은 값이 나오면 같은 키라고 인식
+	// std::hash<ZString> 하면 hash가 ZString이 뭔지 모름
+
+	for (int i = 0; i < ums.bucket_count(); ++i) {
+		std::print("[{: > 3}]", i);
+		for (auto j = ums.begin(i); j != ums.end(i); ++j) {
+			std::cout << " --> " << *j;
+		}
+		std::cout << std::endl;
+	}
+		
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:17:16.0991736
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <unordered_set>
+#include <print>
+#include <numeric>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	class Dog {
+	public:
+		size_t operator()(const ZString& zs) const {
+			return std::hash<std::string>{}({ zs.begin(), zs.end() });
+		}
+	};
+
+	std::unordered_multiset<ZString, Dog> ums{ "2026년", "6월", "8일", "월요일" };
+	// hash 작성은 박사논문급
+	// 동일한 키인지 아닌지 hash가 판단 -> hash돌려서 같은 값이 나오면 같은 키라고 인식
+	// std::hash<ZString> 하면 hash가 ZString이 뭔지 모름
+	// 얘들이 골고루 다른방에 퍼져있어야 unordered_set을 사용하는 의미가 있음
+	// 그럼 방 배정을 어떻게 할까??
+	// 우리 ZString은 "2026년"을 어떻게 저장하는가? -> id, len, "실제 데이터" 이렇게 들어있는데
+	// 이 중 키로 쓰고싶은 건 개발자 본인이 판단하면 된다. ZString에선 "실제 데이터"가 중요한 값이기 때문에
+	// 이걸 기준으로 키값을 선정할것이다.
+	// 
+
+	for (int i = 0; i < ums.bucket_count(); ++i) {
+		std::print("[{: > 3}]", i);
+		for (auto j = ums.begin(i); j != ums.end(i); ++j) {
+			std::cout << " --> " << *j;
+		}
+		std::cout << std::endl;
+	}
+		
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:22:55.1801076
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <unordered_set>
+#include <fstream>
+#include <print>
+#include <numeric>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+template<>
+struct std::hash<ZString> {
+	size_t operator()(const ZString& zs) const {
+		return std::hash<std::string>{}({ zs.begin(), zs.end() });
+	}
+};
+
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	std::ifstream in{ "메인.cpp" };
+	if (not in) {
+		return 20260608;
+	}
+
+	std::unordered_multiset<ZString> ums{ std::istream_iterator<ZString>{in}, {} };
+
+	for (int i = 0; i < ums.bucket_count(); ++i) {
+		std::print("[{: > 3}]", i);
+		for (auto j = ums.begin(i); j != ums.end(i); ++j) {
+			std::cout << " --> " << *j;
+		}
+		std::cout << std::endl;
+	}
+		
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:23:46.4894715
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <unordered_set>
+#include <fstream>
+#include <print>
+#include <numeric>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+template<>
+struct std::hash<ZString> {
+	size_t operator()(const ZString& zs) const {
+		return std::hash<std::string>{}({ zs.begin(), zs.end() });
+	}
+};
+
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	std::ifstream in{ "메인.cpp" };
+	if (not in) {
+		return 20260608;
+	}
+
+	std::unordered_multiset<ZString> ums{ std::istream_iterator<ZString>{in}, {} };
+
+	for (int i = 0; i < ums.bucket_count(); ++i) {
+		std::print("[{:>03}]", i);
+		for (auto j = ums.begin(i); j != ums.end(i); ++j) {
+			std::cout << " --> " << *j;
+		}
+		std::cout << std::endl;
+	}
+		
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:47:08.4323965
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+const size_t NUM{ 1000'0000 };
+const size_t FNUM{ 10'0000 };
+
+std::array<int, NUM> num;
+std::array<int, FNUM> fnum;
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{1, 1'0000'0000 };
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	for (int& num : num)
+		num = uid(dre);
+
+	for (int& num : fnum)
+		num = uid(dre);
+
+	{	// 벡터에서 찾기
+		std::vector<int> v{ num.begin(), num.end() };
+
+		size_t cnt{};
+		for (int num : fnum) {
+			if (std::find(v.begin(), v.end(), num) != v.end())
+				++cnt;
+		}
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:48:53.8236455
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+const size_t NUM{ 1000'0000 };
+const size_t FNUM{ 10'0000 };
+
+std::array<int, NUM> num;
+std::array<int, FNUM> fnum;
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{1, 1'0000'0000 };
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	for (int& num : num)
+		num = uid(dre);
+
+	for (int& num : fnum)
+		num = uid(dre);
+
+	{	// 벡터에서 찾기
+		std::vector<int> v{ num.begin(), num.end() };
+
+		std::cout << "벡터에서 찾는 중";
+		size_t cnt{};
+		for (int num : fnum) {
+			if (std::find(v.begin(), v.end(), num) != v.end())
+				++cnt;
+		}
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:51:42.2647617
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+const size_t NUM{ 1000'0000 };
+const size_t FNUM{ 1'0000 };
+
+std::array<int, NUM> num;
+std::array<int, FNUM> fnum;
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{1, 1'0000'0000 };
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	for (int& num : num)
+		num = uid(dre);
+
+	for (int& num : fnum)
+		num = uid(dre);
+
+	{	// 벡터에서 찾기
+		std::vector<int> v{ num.begin(), num.end() };
+
+		std::cout << "벡터에서 찾는 중";
+		size_t cnt{};
+		for (int num : fnum) {
+			if (std::find(v.begin(), v.end(), num) != v.end())
+				++cnt;
+		}
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:52:22.4568027
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+const size_t NUM{ 1000'0000 };
+const size_t FNUM{ 1'0000 };
+
+std::array<int, NUM> num;
+std::array<int, FNUM> fnum;
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{1, 2000'0000 };
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	for (int& num : num)
+		num = uid(dre);
+
+	for (int& num : fnum)
+		num = uid(dre);
+
+	{	// 벡터에서 찾기
+		std::vector<int> v{ num.begin(), num.end() };
+
+		std::cout << "벡터에서 찾는 중";
+		size_t cnt{};
+		for (int num : fnum) {
+			if (std::find(v.begin(), v.end(), num) != v.end())
+				++cnt;
+		}
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:55:05.9605024
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+const size_t NUM{ 1000'0000 };
+const size_t FNUM{ 1'0000 };
+
+std::array<int, NUM> num;
+std::array<int, FNUM> fnum;
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{1, 2000'0000 };
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	for (int& num : num)
+		num = uid(dre);
+
+	for (int& num : fnum)
+		num = uid(dre);
+
+	{	// 벡터에서 찾기
+		std::vector<int> v{ num.begin(), num.end() };
+
+		std::cout << "벡터에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (std::find(v.begin(), v.end(), num) != v.end())
+				++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+		
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:57:00.7965432
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+const size_t NUM{ 1000'0000 };
+const size_t FNUM{ 1'0000 };
+
+std::array<int, NUM> num;
+std::array<int, FNUM> fnum;
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{1, 2000'0000 };
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	for (int& num : num)
+		num = uid(dre);
+
+	for (int& num : fnum)
+		num = uid(dre);
+
+	{	// 벡터에서 찾기
+		std::vector<int> v{ num.begin(), num.end() };
+
+		std::cout << "vector에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (std::find(v.begin(), v.end(), num) != v.end())
+				++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+		
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+
+	{	// 셋에서 찾기
+		std::set<int> s{ num.begin(), num.end() };
+
+		std::cout << "set에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (s.contains(num)) ++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 14:59:50.6494454
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+const size_t NUM{ 1000'0000 };
+const size_t FNUM{ 1'0000 };
+
+std::array<int, NUM> num;
+std::array<int, FNUM> fnum;
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{1, 2000'0000 };
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	for (int& num : num)
+		num = uid(dre);
+
+	for (int& num : fnum)
+		num = uid(dre);
+
+	{	// 벡터에서 찾기
+		std::cout << std::endl;
+		std::vector<int> v{ num.begin(), num.end() };
+
+		std::cout << "vector에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (std::find(v.begin(), v.end(), num) != v.end())
+				++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+		
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+
+	{	// 셋에서 찾기
+		std::cout << std::endl;
+		std::set<int> s{ num.begin(), num.end() };
+
+		std::cout << "set에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (s.contains(num)) ++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+
+	{	// 언오더드 셋에서 찾기
+		std::cout << std::endl;
+		std::unordered_set<int> us{ num.begin(), num.end() };
+
+		std::cout << "unordered_set에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (us.contains(num)) ++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 15:03:04.4876531
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+const size_t NUM{ 1000'0000 };
+const size_t FNUM{ 1'0000 };
+
+std::array<int, NUM> num;
+std::array<int, FNUM> fnum;
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{1, 2000'0000 };
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	for (int& num : num)
+		num = uid(dre);
+
+	for (int& num : fnum)
+		num = uid(dre);
+
+	{	// 벡터에서 찾기
+		std::cout << std::endl;
+		std::vector<int> v{ num.begin(), num.end() };
+
+		std::cout << "vector에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (std::find(v.begin(), v.end(), num) != v.end())
+				++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+		
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+
+	{	// 셋에서 찾기
+		std::cout << std::endl;
+		std::multiset<int> s{ num.begin(), num.end() };
+
+		std::cout << "multiset에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (s.contains(num)) ++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+
+	{	// 언오더드 셋에서 찾기	-> O(1) 이기 때문에 데이터 갯수와 별로 상관없음. 아무리 늘어나도 걸리는 시간은 비슷함
+		std::cout << std::endl;
+		std::unordered_multiset<int> us{ num.begin(), num.end() };
+
+		std::cout << "unordered_multiset에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (us.contains(num)) ++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-08 15:06:30.1780797
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 08일													(14주 2일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// 컨테이너 찾기 성능 비교
+// 1. 벡터
+// 2. 멀티셋
+// 3. 언오더드 멀티셋
+// 
+// 1000만개에서 10만개 찾기
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <array>
+#include <vector>
+#include <set>
+#include <unordered_set>
+#include <random>
+#include <algorithm>
+#include <chrono>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+const size_t NUM{ 1000'0000 };
+const size_t FNUM{ 1'0000 };
+
+std::array<int, NUM> num;
+std::array<int, FNUM> fnum;
+
+std::default_random_engine dre;
+std::uniform_int_distribution uid{1, 2000'0000 };
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	for (int& num : num)
+		num = uid(dre);
+
+	for (int& num : fnum)
+		num = uid(dre);
+
+	{	// 벡터에서 찾기
+		std::cout << std::endl;
+		std::vector<int> v{ num.begin(), num.end() };
+
+		std::cout << "vector에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (std::find(v.begin(), v.end(), num) != v.end())
+				++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+		
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+
+	{	// 정렬된 벡터에서 찾기
+		std::cout << std::endl;
+		std::vector<int> v{ num.begin(), num.end() };
+
+		std::cout << "vector를 정렬하는 중";
+		std::sort(v.begin(), v.end());
+		std::cout << std::endl;
+
+		std::cout << "정렬된 vector에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (std::binary_search(v.begin(), v.end(), num))
+				++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+
+	{	// 셋에서 찾기 -> 정렬된 벡터보다 느림. 근데 정렬된 벡터에서 추가하면 정렬된 벡터는 바보됨. set은 추가에 자유로움.
+		std::cout << std::endl;
+		std::multiset<int> s{ num.begin(), num.end() };
+
+		std::cout << "multiset에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (s.contains(num)) ++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+
+	{	// 언오더드 셋에서 찾기	-> O(1) 이기 때문에 데이터 갯수와 별로 상관없음. 아무리 늘어나도 걸리는 시간은 비슷함
+		std::cout << std::endl;
+		std::unordered_multiset<int> us{ num.begin(), num.end() };
+
+		std::cout << "unordered_multiset에서 찾는 중";
+		size_t cnt{};
+
+		auto start = std::chrono::high_resolution_clock::now();
+		for (int num : fnum) {
+			if (us.contains(num)) ++cnt;
+		}
+		auto stop = std::chrono::high_resolution_clock::now();
+
+		std::cout << std::endl;
+		std::cout << FNUM << "중에서 " << cnt << "개 찾음" << std::endl;
+		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
+	}
+}
