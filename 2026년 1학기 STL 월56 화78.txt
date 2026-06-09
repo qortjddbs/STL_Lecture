@@ -18062,3 +18062,692 @@ int main()
 		std::cout << "걸린시간 - " << std::chrono::duration_cast<std::chrono::microseconds>(stop - start) << std::endl;
 	}
 }
+
+==========================================================================================
+저장한 시간 - 2026-06-09 16:30:27.1842933
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// 1. Non-modifying sequence operations
+// 2. Modifying sequence operations
+// 3. Sorting and related operations
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+}
+
+// for_each 쓰면 리턴값 활용 가능 (range_for랑 다르게)
+// 커다란 파일 2개 주고 공통된 단어 찾는 문제같은거 기말 나올수도 Set operations -> set_intersection이용?
+
+// C++에서 Heap은 자료구조를 뜻한다. 메모리 -> free-store
+// predicate -> bool을 리턴하는 조건자
+// lazy evaluation -> 필요할 때만 계산하는 것 (&&, ||, ?: 연산자에서 사용)
+
+// cppreference 페이지 알고리즘 라이브러리 부분
+// constrained algorithms -> C++20에서 추가된 개념, 특정 조건을 만족하는 타입에 대해서만 알고리즘이 적용되도록 하는 것
+// concpets -> c++20, contract -> c++26
+// 앞으로는 find(v.begin(), v.end(), 3); 이런 구닥다리 코드 말고 ranges::find(v, 3); 이렇게 사용하기
+// 기능은 똑같지만 더 최신 버전에서 추가된 코드임 (새 버전이고 검증된 것이다)
+// projection -> 투영. 내가 원하는 대로 바꿔주는 것.
+// 그냥 알고리즘에서 ranges 알고리즘으로 넘어오면서 리턴 타입이 달라짐
+// 그래도 사용하는 건 큰 문제 없음
+
+// 예시
+// Non-modifying sequence operations
+// 여기있는 알고리즘은 sequence 컨테이너에 매우 적합. (벡터, 리스트로 돌리기 좋음)
+// for_each
+// constexpr -> 컴파일할 때 이 값이 결정되는 것을 의미
+// 이런식으로 찾아보고 공부할 수 있다는 것 정도 알아보기
+
+==========================================================================================
+저장한 시간 - 2026-06-09 16:40:33.8822180
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// 1. Non-modifying sequence operations
+// 2. Modifying sequence operations
+// 3. Sorting and related operations
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+}
+
+// 서치 알고리즘 중
+// all_of - 모든 요소가 조건을 만족하는지 검사
+// any_of - 하나라도 조건을 만족하는 요소가 있는지 검사
+// none_of - 모든 요소가 조건을 만족하지 않는지 검사
+
+// 전역 알고리즘 find가 있고 string 알고리즘 find가 있음. (역사적인 이유)
+
+==========================================================================================
+저장한 시간 - 2026-06-09 16:45:23.8359067
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// 1. Non-modifying sequence operations
+// 2. Modifying sequence operations
+// 3. Sorting and related operations
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <random>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+std::default_random_engine dre;
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// 이번 주 lotto 번호를 알려주자.
+	std::vector<int> v;
+	for (int i = 0; i < 45; ++i)		// 루프 안쓰고 해결하기 (구닥다리 루프도는거 말고)
+		v.push_back(i + 1);				// emplace_back이 더 좋은가?? 아닐걸
+
+	std::cout << std::endl << "이번 주 이 번호로 사세요" << std::endl;
+	std::sample(v.begin(), v.end(), std::ostream_iterator<int>{std::cout, " "}, 5, dre);
+
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 16:46:24.1711946
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// 1. Non-modifying sequence operations
+// 2. Modifying sequence operations
+// 3. Sorting and related operations
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <random>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+
+std::default_random_engine dre{ std::random_device{}()};	// random_device를 생성{} 해서 호출() 하는 것!
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	// 이번 주 lotto 번호를 알려주자.
+	std::vector<int> v;
+	for (int i = 0; i < 45; ++i)		// 루프 안쓰고 해결하기 (구닥다리 루프도는거 말고)
+		v.push_back(i + 1);				// emplace_back이 더 좋은가?? 아닐걸
+
+	std::cout << std::endl << "이번 주 이 번호로 사세요" << std::endl;
+	std::sample(v.begin(), v.end(), std::ostream_iterator<int>{std::cout, " "}, 5, dre);
+
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 16:58:17.3674695
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// 1. Non-modifying sequence operations
+// 2. Modifying sequence operations
+// 3. Sorting and related operations
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <print>
+#include <chrono>
+#include <thread>
+
+#include "save.h"
+#include "ZString.h"
+
+using namespace std::chrono_literals;
+
+extern bool 관찰;				// 관찰하려면 true
+
+std::default_random_engine dre{ std::random_device{}()};	// random_device를 생성{} 해서 호출() 하는 것!
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	ZString zs{ "The quick brown fox jumps over the lazy dog." };
+
+	for (int i = 0; i < 10; ++i)
+		std::cout << std::endl;
+
+	while (true) {
+		std::print("{:^80}", std::string{ zs.begin(), zs.end() });
+		std::this_thread::sleep_for(100ms);
+		std::cout << '\r';
+		std::rotate(zs.begin(), zs.begin() + 1, zs.end());
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 16:58:55.4005108
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// 1. Non-modifying sequence operations
+// 2. Modifying sequence operations
+// 3. Sorting and related operations
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <random>
+#include <print>
+#include <chrono>
+#include <thread>
+
+#include "save.h"
+#include "ZString.h"
+
+using namespace std::chrono_literals;
+
+extern bool 관찰;				// 관찰하려면 true
+
+std::default_random_engine dre{ std::random_device{}()};	// random_device를 생성{} 해서 호출() 하는 것!
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	ZString zs{ "The quick brown fox jumps over the lazy dog --> " };
+
+	for (int i = 0; i < 10; ++i)
+		std::cout << std::endl;
+
+	while (true) {
+		std::print("{:^80}", std::string{ zs.begin(), zs.end() });
+		std::this_thread::sleep_for(200ms);
+		std::cout << '\r';
+		std::rotate(zs.begin(), zs.begin() - 1, zs.end());
+	}
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 17:04:24.7056999
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// - 정렬 관련 알고리즘 - 복잡도 순서대로
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+
+#include "save.h"
+#include "ZString.h"
+
+extern bool 관찰;				// 관찰하려면 true
+using namespace std;
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 20260609;
+
+	vector<ZString> v{ istream_iterator<ZString>{in}, {} };
+	cout << "모두 " << v.size() << "개의 단어를 읽었다" << endl;
+
+	sort(v.begin(), v.end());
+	auto newEnd = unique(v.begin(), v.end());
+	v.erase(newEnd, v.end());
+	cout << "중복을 제거한 단어 개수 - " << v.size() << endl;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 17:07:12.7097060
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// - 정렬 관련 알고리즘 - 복잡도 순서대로
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+
+#include "save.h"
+#include "ZString.h"
+
+using namespace std;
+extern bool 관찰;				// 관찰하려면 true
+
+default_random_engine dre{ random_device{}() };		// random_device()() 해도 됨. 생성 호출한다는 의미로. 근데 촌스러움. 생성은 {}로 하자.
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 20260609;
+
+	vector<ZString> v{ istream_iterator<ZString>{in}, {} };
+	cout << "모두 " << v.size() << "개의 단어를 읽었다" << endl;
+
+	sort(v.begin(), v.end());
+	auto newEnd = unique(v.begin(), v.end());
+	v.erase(newEnd, v.end());
+	cout << "중복을 제거한 단어 개수 - " << v.size() << endl;
+
+	shuffle(v.begin(), v.end(), dre);
+
+	for (const ZString& zs : v)
+		cout << zs << " ";
+	cout << endl;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 17:12:27.9087285
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// - 정렬 관련 알고리즘 - 복잡도 순서대로
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+
+#include "save.h"
+#include "ZString.h"
+
+using namespace std;
+extern bool 관찰;				// 관찰하려면 true
+
+default_random_engine dre{ random_device{}() };		// random_device()() 해도 됨. 생성 호출한다는 의미로. 근데 촌스러움. 생성은 {}로 하자.
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 20260609;
+
+	vector<ZString> v{ istream_iterator<ZString>{in}, {} };
+	cout << "모두 " << v.size() << "개의 단어를 읽었다" << endl;
+
+	sort(v.begin(), v.end());
+	auto newEnd = unique(v.begin(), v.end());
+	v.erase(newEnd, v.end());
+	cout << "중복을 제거한 단어 개수 - " << v.size() << endl;
+
+	shuffle(v.begin(), v.end(), dre);
+
+	for (const ZString& zs : v)
+		cout << zs << " ";
+	cout << endl;
+
+	// [문제] 길이가 홀수인것과 짝수인것으로 정렬하라.
+	// 앞에는 홀수 뒤에는 짝수
+	// 홀수 앞에 짝수가 있으면 안된다.
+	sort(v.begin(), v.end(), [](const ZString& a, const ZString& b) {
+		if (a.size() % 2 == 0)
+			if (b.size() % 2 == 1)
+				return 1;
+		return 0;
+		});
+
+	for (const ZString& zs : v)
+		cout << zs << " ";
+	cout << endl;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 17:12:49.7037523
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// - 정렬 관련 알고리즘 - 복잡도 순서대로
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+
+#include "save.h"
+#include "ZString.h"
+
+using namespace std;
+extern bool 관찰;				// 관찰하려면 true
+
+default_random_engine dre{ random_device{}() };		// random_device()() 해도 됨. 생성 호출한다는 의미로. 근데 촌스러움. 생성은 {}로 하자.
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 20260609;
+
+	vector<ZString> v{ istream_iterator<ZString>{in}, {} };
+	cout << "모두 " << v.size() << "개의 단어를 읽었다" << endl;
+
+	sort(v.begin(), v.end());
+	auto newEnd = unique(v.begin(), v.end());
+	v.erase(newEnd, v.end());
+	cout << "중복을 제거한 단어 개수 - " << v.size() << endl;
+
+	shuffle(v.begin(), v.end(), dre);
+
+	for (const ZString& zs : v)
+		cout << zs << " ";
+	cout << endl;
+
+	// [문제] 길이가 홀수인것과 짝수인것으로 정렬하라.
+	// 앞에는 홀수 뒤에는 짝수
+	// 홀수 앞에 짝수가 있으면 안된다.
+	sort(v.begin(), v.end(), [](const ZString& a, const ZString& b) {
+		if (a.size() % 2 == 0)
+			if (b.size() % 2 == 1)
+				return false;
+		return true;
+		});
+
+	for (const ZString& zs : v)
+		cout << zs << " ";
+	cout << endl;
+	// => 0점짜리 코드 (이 문제는 정렬 문제가 아니기 때문)
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 17:16:33.4598602
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// - 정렬 관련 알고리즘 - 복잡도 순서대로
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+
+#include "save.h"
+#include "ZString.h"
+
+using namespace std;
+extern bool 관찰;				// 관찰하려면 true
+
+default_random_engine dre{ random_device{}() };		// random_device()() 해도 됨. 생성 호출한다는 의미로. 근데 촌스러움. 생성은 {}로 하자.
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 20260609;
+
+	vector<ZString> v{ istream_iterator<ZString>{in}, {} };
+	cout << "모두 " << v.size() << "개의 단어를 읽었다" << endl;
+
+	sort(v.begin(), v.end());
+	auto newEnd = unique(v.begin(), v.end());
+	v.erase(newEnd, v.end());
+	cout << "중복을 제거한 단어 개수 - " << v.size() << endl;
+
+	shuffle(v.begin(), v.end(), dre);
+
+	for (const ZString& zs : v)
+		cout << zs << " ";
+	cout << endl;
+
+	// [문제] 길이가 홀수인것과 짝수인것으로 분리하라.
+	// 앞에는 홀수 뒤에는 짝수
+	// 홀수 앞에 짝수가 있으면 안된다.
+	// 홀수와 짝수가 각각 몇 개인지 출력하라.
+	partition(v.begin(), v.end(), [](const ZString& a) {
+		return a.size() % 2;
+		});
+
+	for (const ZString& zs : v)
+		cout << zs << " ";
+	cout << endl;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 17:19:41.9705237
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// - 정렬 관련 알고리즘 - 복잡도 순서대로
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+
+#include "save.h"
+#include "ZString.h"
+
+using namespace std;
+extern bool 관찰;				// 관찰하려면 true
+
+default_random_engine dre{ random_device{}() };		// random_device()() 해도 됨. 생성 호출한다는 의미로. 근데 촌스러움. 생성은 {}로 하자.
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 20260609;
+
+	vector<ZString> v{ istream_iterator<ZString>{in}, {} };
+	cout << "모두 " << v.size() << "개의 단어를 읽었다" << endl;
+
+	sort(v.begin(), v.end());
+	auto newEnd = unique(v.begin(), v.end());
+	v.erase(newEnd, v.end());
+	cout << "중복을 제거한 단어 개수 - " << v.size() << endl;
+
+	shuffle(v.begin(), v.end(), dre);
+
+	for (const ZString& zs : v)
+		cout << zs << " ";
+	cout << endl;
+
+	// [문제] 길이가 홀수인것과 짝수인것으로 분리하라.
+	// 앞에는 홀수 뒤에는 짝수
+	// 홀수 앞에 짝수가 있으면 안된다.
+	// 홀수와 짝수가 각각 몇 개인지 출력하라.
+	// 파티션은 경계 위치를 반환한다.
+	auto 짝수시작위치 = partition(v.begin(), v.end(), [](const ZString& a) {
+		return a.size() % 2;
+		});
+
+	cout << "길이가 홀수 - " << distance(v.begin(), 짝수시작위치) << endl;
+	for (auto i = v.begin(); i != 짝수시작위치; ++i)
+		cout << *i << " ";
+
+	cout << endl;
+	cout << endl;
+
+	cout << "길이가 짝수 - " << distance(짝수시작위치, v.end()) << endl;
+	for (auto i = 짝수시작위치; i != v.end(); ++i)
+		cout << *i << " ";
+	cout << endl;
+}
+
+==========================================================================================
+저장한 시간 - 2026-06-09 17:21:18.1710986
+==========================================================================================
+
+//-------------------------------------------------------------------------------------------------------
+// 2026년 1학기 STL 월56 화78		06월 09일													(15주 1일)
+// 6/22 기말시험 (16/2) - 제일 마지막 시험
+//------------------------------------------------------------------------------------------------------- 
+// STL Algorithms
+// - 정렬 관련 알고리즘 - 복잡도 순서대로
+//-------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+
+#include "save.h"
+#include "ZString.h"
+
+using namespace std;
+extern bool 관찰;				// 관찰하려면 true
+
+default_random_engine dre{ random_device{}() };		// random_device()() 해도 됨. 생성 호출한다는 의미로. 근데 촌스러움. 생성은 {}로 하자.
+
+// ----------
+int main()
+// ----------
+{
+	save("메인.cpp");
+
+	ifstream in{ "이상한 나라의 앨리스.txt" };
+	if (not in)
+		return 20260609;
+
+	vector<ZString> v{ istream_iterator<ZString>{in}, {} };
+	cout << "모두 " << v.size() << "개의 단어를 읽었다" << endl;
+
+	sort(v.begin(), v.end());
+	auto newEnd = unique(v.begin(), v.end());
+	v.erase(newEnd, v.end());
+	cout << "중복을 제거한 단어 개수 - " << v.size() << endl;
+
+	shuffle(v.begin(), v.end(), dre);
+
+	for (const ZString& zs : v)
+		cout << zs << " ";
+	cout << endl;
+
+	// [문제] 길이가 홀수인것과 짝수인것으로 분리하라.
+	// 앞에는 홀수 뒤에는 짝수
+	// 홀수 앞에 짝수가 있으면 안된다.
+	// 홀수와 짝수가 각각 몇 개인지 출력하라.
+	// 파티션은 경계 위치를 반환한다.
+	auto 짝수시작위치 = partition(v.begin(), v.end(), [](const ZString& a) {
+		return *a.begin() == 'a';
+		});
+
+	cout << "길이가 홀수 - " << distance(v.begin(), 짝수시작위치) << endl;
+	for (auto i = v.begin(); i != 짝수시작위치; ++i)
+		cout << *i << " ";
+
+	cout << endl;
+	cout << endl;
+
+	cout << "길이가 짝수 - " << distance(짝수시작위치, v.end()) << endl;
+	for (auto i = 짝수시작위치; i != v.end(); ++i)
+		cout << *i << " ";
+	cout << endl;
+}
