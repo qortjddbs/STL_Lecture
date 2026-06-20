@@ -125,24 +125,24 @@ bool ZString::operator<(const ZString& rhs) const
 // 2026. 05. 12 - 반복자 인터페이스
 ZString_Iterator ZString::begin() const 
 { 	
-	return p.get(); 
+	return ZString_Iterator{ p.get() };
 }
 
 ZString_Iterator ZString::end() const 
 {	
-	return p.get() + len;
+	return ZString_Iterator{ p.get() + len };
 }
 
 // 2026. 05. 18 - 역방향 추가
 // 2026. 05. 19 - 역방향반복자는 반드시 class로 코딩해야 합니다.
-ZString_Iterator ZString::rbegin() const
+ZString_Reverse_Iterator ZString::rbegin() const
 {
-	return p.get() + len;
+	return ZString_Reverse_Iterator{ p.get() + len - 1};
 }
 
-ZString_Iterator ZString::rend() const
+ZString_Reverse_Iterator ZString::rend() const
 {
-	return p.get();
+	return ZString_Reverse_Iterator{ p.get() };
 }
 
 size_t ZString::getLen() const { return len; }

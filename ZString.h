@@ -22,12 +22,12 @@ public:
 	ZString_Iterator(char* p) : p{ p } { }
 
 	// void로 놓으면 안된다.
-	ZString_Iterator operator++() {
+	ZString_Iterator& operator++() {
 		++p;
 		return *this;
 	}
 
-	ZString_Iterator operator--() {
+	ZString_Iterator& operator--() {
 		--p;
 		return *this;
 	}
@@ -66,6 +66,10 @@ public:
 
 	void operator++() {
 		--p;
+	}
+
+	char operator*() const {
+		return *(p - 1);
 	}
 
 	auto operator<=>(const ZString_Reverse_Iterator& rhs) const = default;
@@ -114,8 +118,8 @@ public:
 
 	// 2026. 05. 18 - 역방향 추가
 	// 2026. 05. 19 - 역방향반복자는 반드시 class로 코딩해야 합니다.
-	ZString_Iterator rbegin() const;
-	ZString_Iterator rend() const;
+	ZString_Reverse_Iterator rbegin() const;
+	ZString_Reverse_Iterator rend() const;
 
 	// 인터페이스 - 나중에 삭제 예정
 	size_t getLen() const;
