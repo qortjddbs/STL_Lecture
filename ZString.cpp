@@ -137,7 +137,7 @@ ZString_Iterator ZString::end() const
 // 2026. 05. 19 - 역방향반복자는 반드시 class로 코딩해야 합니다.
 ZString_Reverse_Iterator ZString::rbegin() const
 {
-	return ZString_Reverse_Iterator{ p.get() + len - 1};
+	return ZString_Reverse_Iterator{ p.get() + len };
 }
 
 ZString_Reverse_Iterator ZString::rend() const
