@@ -1,0 +1,317 @@
+
+==================================================
+        Ã°  - 2026   06   16   15   34   12.5413599  
+==================================================
+
+ï»?/--------------------------------------------------------------------------------------------------------------------
+// 2026??1?™ê¸° STL ??6??8			6??16??		(15ì£?1??
+// 6/22 ê¸°ë§?œí—˜(15/2) - ?œì¼ ë§ˆì?ë§??œí—˜
+//--------------------------------------------------------------------------------------------------------------------
+// ì»´íŒŒ???˜ê²½ - Release / x64
+// VS ë²„ì „ - 17.14.27 (February 2026)
+// ?„ë¡œ?íŠ¸ ?¤ì • - C++?¸ì–´?œì? - /std:c++latest
+//				- C/C++?¸ì–´ - SDLê²€??- ?„ë‹ˆ??
+//---------------------------------------------------------------------------------------------------------------------
+// universal reference - range for ?ì„œ range factoryë¥??´ìš©?????¬ìš©
+// 
+// concept
+// type traits
+// 
+// C++ Constrained Algothm ( Range + Concept )
+//----------------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <ranges>
+#include <numeric>
+#include <print>
+#include <list>
+#include "save.h"
+#include "ZString.h"
+
+extern bool ê´€ì°?			// ê´€ì°°í•˜?¤ë©´ true
+
+template<class T>
+T add(const T& a, const T& b)
+{
+	return a + b;
+}
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int num) : n{ num } {};
+
+	Dog operator+(const Dog& rhs) const {
+		return n + rhs.n;
+	}
+
+private:
+	int n;
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.n;
+	}
+};
+
+//--------
+int main()
+//--------
+{
+	save("ë©”ì¸.cpp");
+
+	// [ë¬¸ì œ] add ?¨ìˆ˜ë¥??‘ì„±?˜ë¼.
+	std::cout << add(1, 2) << std::endl;
+	std::cout << add<std::string>("2026??, "6??15??) << std::endl;
+	
+	std::cout << add(Dog{ 1 }, Dog{ 2 }) << std::endl; // 3?´ë¼ê³?ì¶œë ¥?˜ì–´??
+}
+
+==================================================
+ÀúÀåÇÑ ½Ã°£ - 2026³â 06¿ù 16ÀÏ 15½Ã 53ºĞ 46.5114578ÃÊ
+==================================================
+
+ï»?/--------------------------------------------------------------------------------------------------------------------
+// 2026??1?™ê¸° STL ??6??8			6??16??		(15ì£?1??
+// 6/22 ê¸°ë§?œí—˜(15/2) - ?œì¼ ë§ˆì?ë§??œí—˜
+//--------------------------------------------------------------------------------------------------------------------
+// ì»´íŒŒ???˜ê²½ - Release / x64
+// VS ë²„ì „ - 17.14.27 (February 2026)
+// ?„ë¡œ?íŠ¸ ?¤ì • - C++?¸ì–´?œì? - /std:c++latest
+//				- C/C++?¸ì–´ - SDLê²€??- ?„ë‹ˆ??
+//---------------------------------------------------------------------------------------------------------------------
+// universal reference - range for ?ì„œ range factoryë¥??´ìš©?????¬ìš©
+// 
+// concept
+// type traits
+// 
+// C++ Constrained Algothm ( Range + Concept )
+//----------------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <ranges>
+#include <numeric>
+#include <print>
+#include <list>
+#include "save.h"
+#include "ZString.h"
+
+extern bool ê´€ì°?			// ê´€ì°°í•˜?¤ë©´ true
+
+template<class T>
+concept ?«ìë§?= std::is_integral_v<T> || std::is_floating_point_v<T>; // _v??value?? ê°’ì„ êº¼ë‚´?€??ì°?ê±°ì§“ ?ë‹¨.
+// ì»´íŒŒ???¨ê³„??ì°?ê±°ì§“???ë‹¨?????ˆìŒ.
+
+template<?«ìë§?T>	// ?«ìë§??¨ë‹¤??ê°œë…???¥ì°©?˜ê³  ?¤ë©´ ì¢‹ê² ??-> conceptë¥??¬ìš©
+T add(const T& a, const T& b)
+{
+	return a + b;	// ?ë£Œ?•ì´ ë¬´ê???ì½”ë”©. Generic Programming. ??ë¶€ë¶„ì? C++??ìµœê³ ??
+}
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int num) : n{ num } {};
+
+	Dog operator+(const Dog& rhs) const {
+		return n + rhs.n;	// == Dog { n + rhs.n }; / ê·¼ë° ?´ëŸ¬ë©??„ì‹œê°ì²´ê°€ ?ˆë¬´ ë§ì´ ?ê¸°ê¸°ëŠ”ê±??„ëƒ?
+							// => RVO (Return Value Optimization)ê°€ ?ë™?¼ë¡œ ?‘ë™??
+	}
+
+private:
+	int n;
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.n;
+	}
+};
+
+//--------
+int main()
+//--------
+{
+	save("ë©”ì¸.cpp");
+
+	// [ë¬¸ì œ] add ?¨ìˆ˜ë¥??‘ì„±?˜ë¼.
+	std::cout << add(1, 2) << std::endl;
+	std::cout << add(1.2, 3.5) << std::endl;
+	
+	// [ì§ˆë¬¸] ?´ê? ë§Œë“  class Dogê°€ ?´ê? ë§Œë“  concept ?«ìë§Œì„ ë§Œì¡±?˜ë„ë¡??˜ê³ ?¶ë‹¤.
+	// std::cout << add(Dog{ 1 }, Dog{ 2 }) << std::endl; // 3?´ë¼ê³?ì¶œë ¥?˜ì–´??
+}
+
+==================================================
+ÀúÀåÇÑ ½Ã°£ - 2026³â 06¿ù 16ÀÏ 15½Ã 54ºĞ 44.2654518ÃÊ
+==================================================
+
+ï»?/--------------------------------------------------------------------------------------------------------------------
+// 2026??1?™ê¸° STL ??6??8			6??16??		(15ì£?1??
+// 6/22 ê¸°ë§?œí—˜(15/2) - ?œì¼ ë§ˆì?ë§??œí—˜
+//--------------------------------------------------------------------------------------------------------------------
+// ì»´íŒŒ???˜ê²½ - Release / x64
+// VS ë²„ì „ - 17.14.27 (February 2026)
+// ?„ë¡œ?íŠ¸ ?¤ì • - C++?¸ì–´?œì? - /std:c++latest
+//				- C/C++?¸ì–´ - SDLê²€??- ?„ë‹ˆ??
+//---------------------------------------------------------------------------------------------------------------------
+// universal reference - range for ?ì„œ range factoryë¥??´ìš©?????¬ìš©
+// 
+// concept
+// type traits
+// 
+// C++ Constrained Algothm ( Range + Concept )
+//----------------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <ranges>
+#include <numeric>
+#include <print>
+#include <list>
+#include "save.h"
+#include "ZString.h"
+
+extern bool ê´€ì°?			// ê´€ì°°í•˜?¤ë©´ true
+
+template<class T>
+concept ?«ìë§?= std::is_integral_v<T> || std::is_floating_point_v<T>; // _v??value?? ê°’ì„ êº¼ë‚´?€??ì°?ê±°ì§“ ?ë‹¨.
+// ì»´íŒŒ???¨ê³„??ì°?ê±°ì§“???ë‹¨?????ˆìŒ.
+
+template<?«ìë§?T>	// ?«ìë§??¨ë‹¤??ê°œë…???¥ì°©?˜ê³  ?¤ë©´ ì¢‹ê² ??-> conceptë¥??¬ìš©
+T add(const T& a, const T& b)
+{
+	return a + b;	// ?ë£Œ?•ì´ ë¬´ê???ì½”ë”©. Generic Programming. ??ë¶€ë¶„ì? C++??ìµœê³ ??
+}
+
+/*
+auto add2 (?«ìë§?auto& a, ?«ìë§?auto& b)
+{
+	return a + b;
+	?´ëŸ° ê²ƒë„ ê°€?¥í•¨.
+}
+*/
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int num) : n{ num } {};
+
+	Dog operator+(const Dog& rhs) const {
+		return n + rhs.n;	// == Dog { n + rhs.n }; / ê·¼ë° ?´ëŸ¬ë©??„ì‹œê°ì²´ê°€ ?ˆë¬´ ë§ì´ ?ê¸°ê¸°ëŠ”ê±??„ëƒ?
+							// => RVO (Return Value Optimization)ê°€ ?ë™?¼ë¡œ ?‘ë™??
+	}
+
+private:
+	int n;
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.n;
+	}
+};
+
+//--------
+int main()
+//--------
+{
+	save("ë©”ì¸.cpp");
+
+	// [ë¬¸ì œ] add ?¨ìˆ˜ë¥??‘ì„±?˜ë¼.
+	std::cout << add(1, 2) << std::endl;
+	std::cout << add(1.2, 3.5) << std::endl;
+	
+	// [ì§ˆë¬¸] ?´ê? ë§Œë“  class Dogê°€ ?´ê? ë§Œë“  concept ?«ìë§Œì„ ë§Œì¡±?˜ë„ë¡??˜ê³ ?¶ë‹¤.
+	// std::cout << add(Dog{ 1 }, Dog{ 2 }) << std::endl; // 3?´ë¼ê³?ì¶œë ¥?˜ì–´??
+}
+
+==================================================
+ÀúÀåÇÑ ½Ã°£ - 2026³â 06¿ù 16ÀÏ 16½Ã 06ºĞ 16.4505439ÃÊ
+==================================================
+
+ï»?/--------------------------------------------------------------------------------------------------------------------
+// 2026??1?™ê¸° STL ??6??8			6??16??		(15ì£?1??
+// 6/22 ê¸°ë§?œí—˜(15/2) - ?œì¼ ë§ˆì?ë§??œí—˜
+//--------------------------------------------------------------------------------------------------------------------
+// ì»´íŒŒ???˜ê²½ - Release / x64
+// VS ë²„ì „ - 17.14.27 (February 2026)
+// ?„ë¡œ?íŠ¸ ?¤ì • - C++?¸ì–´?œì? - /std:c++latest
+//				- C/C++?¸ì–´ - SDLê²€??- ?„ë‹ˆ??
+//---------------------------------------------------------------------------------------------------------------------
+// universal reference - range for ?ì„œ range factoryë¥??´ìš©?????¬ìš©
+// 
+// concept
+// type traits
+// 
+// C++ Constrained Algothm ( Range + Concept )
+//----------------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <ranges>
+#include <numeric>
+#include <print>
+#include <list>
+#include "save.h"
+#include "ZString.h"
+
+extern bool ê´€ì°?			// ê´€ì°°í•˜?¤ë©´ true
+
+template<class T>
+concept ?«ìë§?= std::is_integral_v<T> || std::is_floating_point_v<T>; // _v??value?? ê°’ì„ êº¼ë‚´?€??ì°?ê±°ì§“ ?ë‹¨.
+// ì»´íŒŒ???¨ê³„??ì°?ê±°ì§“???ë‹¨?????ˆìŒ.
+
+template<?«ìë§?T>	// ?«ìë§??¨ë‹¤??ê°œë…???¥ì°©?˜ê³  ?¤ë©´ ì¢‹ê² ??-> conceptë¥??¬ìš©
+T add(const T& a, const T& b)
+{
+	return a + b;	// ?ë£Œ?•ì´ ë¬´ê???ì½”ë”©. Generic Programming. ??ë¶€ë¶„ì? C++??ìµœê³ ??
+}
+
+/*
+auto add2 (?«ìë§?auto& a, ?«ìë§?auto& b)
+{
+	return a + b;
+	?´ëŸ° ê²ƒë„ ê°€?¥í•¨.
+}
+*/
+
+class Dog {
+public:
+	Dog() = default;
+	Dog(int num) : n{ num } {};
+
+	Dog operator+(const Dog& rhs) const {
+		return n + rhs.n;	// == Dog { n + rhs.n }; / ê·¼ë° ?´ëŸ¬ë©??„ì‹œê°ì²´ê°€ ?ˆë¬´ ë§ì´ ?ê¸°ê¸°ëŠ”ê±??„ëƒ?
+							// => RVO (Return Value Optimization)ê°€ ?ë™?¼ë¡œ ?‘ë™??
+	}
+
+private:
+	int n;
+	friend std::ostream& operator<<(std::ostream& os, const Dog& dog) {
+		return os << dog.n;
+	}
+};
+
+// range + concept = Constrained Algorithm
+// ?€ë¶€ë¶??Œê³ ë¦¬ì¦˜??constrained ë²„ì „?¼ë¡œ ?œê³µ?œë‹¤. 
+// std::ranges ?ˆì— ?ˆë¡œ ?‘ì„±?´ë???
+// ê·¸ë ‡?¤ê³  ?´ì„œ ?Œì‚¬ ê°”ë”??ranges ë²„ì „ ?ˆì“°ê³? ?›ë‚  ì½”ë“œ ?°ê³ 
+// ê·¸ëŸ°?¤ê³  ?´ì„œ ?´ê? ë°°ìš´ê²?ìµœê³ ??-> ?ˆë? ?„ë‹˜.
+// ?ë§Œ?˜ì? ë§?ì§€?´ë‹¤.
+
+//--------
+int main()
+//--------
+{
+	save("ë©”ì¸.cpp");
+
+	// [ë¬¸ì œ] add ?¨ìˆ˜ë¥??‘ì„±?˜ë¼.
+	std::cout << add(1, 2) << std::endl;
+	std::cout << add(1.2, 3.5) << std::endl;
+	
+	// [ì§ˆë¬¸] ?´ê? ë§Œë“  class Dogê°€ ?´ê? ë§Œë“  concept ?«ìë§Œì„ ë§Œì¡±?˜ë„ë¡??˜ê³ ?¶ë‹¤.
+	// std::cout << add(Dog{ 1 }, Dog{ 2 }) << std::endl; // 3?´ë¼ê³?ì¶œë ¥?˜ì–´??
+}
